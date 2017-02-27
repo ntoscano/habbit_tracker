@@ -1,16 +1,15 @@
 import React from 'react';
 import cx from 'classnames';
-
 import style from './index.scss';
+import LogToDo from 'Bitmatica/components/LogToDo';
 
 class ToDoList extends React.Component {
 
   render() {
     const todos = this.props.todos.map((todo, index) => {
       return (
-        <li key={index} onClick={() => {this.props.onIncrement(index)}}
-          className={todo.completed ? cx(style.complete, 'test') : cx(style.incomplete, 'test')}>
-          {todo.text} ({todo.count})
+        <li key={index}>
+          <LogToDo todo={todo} onClick={(notes) => {this.props.onLog(todo.id, todo.text, notes)}} />
         </li>
       );
     });
@@ -26,14 +25,12 @@ class ToDoList extends React.Component {
 
 ToDoList.propTypes = {
   todos: React.PropTypes.array,
-  onToggle: React.PropTypes.func,
-  onIncrement: React.PropTypes.func,
+  onLog: React.PropTypes.func,
 };
 
 ToDoList.defaultProps = {
   todos: [],
-  onToggle: undefined,
-  onIncrement: undefined,
+  onLog: undefined,
 }
 
 export default ToDoList;

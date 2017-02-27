@@ -1,12 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import Component from 'Bitmatica/components/Component';
 
 class ErrorPage extends React.Component {
   render() {
     return (
       <div>
-        <Component greeting={'Oops!'} noun={this.props.message} />
+        Oops!
       </div>
     )
   }

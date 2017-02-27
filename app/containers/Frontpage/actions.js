@@ -8,16 +8,11 @@ export function addToDo(id, text) {
   };
 }
 
-export function toggleToDo(id) {
+export function logToDo(todoId, text, notes) {
   return {
-    type: constants.TOGGLE_TO_DO,
-    id,
-  };
-}
-
-export function incrementToDoCount(id) {
-  return {
-    type: constants.INCREMENT_TODO_COUNT,
-    id,
+    type: constants.LOG_TODO,
+    todoId,
+    text,
+    notes,
   };
 }

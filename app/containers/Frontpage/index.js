@@ -2,15 +2,19 @@ import React from 'react';
 import {connect, dispatch} from 'react-redux';
 import ToDoList from 'Bitmatica/components/ToDoList';
 import AddToDo from 'Bitmatica/components/AddToDo';
-import {addToDo, toggleToDo, incrementToDoCount} from './actions';
+import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
+import {addToDo, logToDo} from './actions';
 
 let nextTodoId = 0;
 class Frontpage extends React.Component {
   render() {
     return (
       <div>
-        <AddToDo onClick={this.props.onClick}/>
-        <ToDoList todos={this.props.todos} onToggle={this.props.onToggle} onIncrement={this.props.onIncrement}/>
+        <AddToDo onClick={this.props.onClick} />
+        Tasks:
+        <ToDoList todos={this.props.todos} onLog={this.props.onLog} />
+        Logged Tasks:
+        <LoggedToDoList loggedTodos={this.props.loggedTodos} />
       </div>
     )
   }
@@ -18,15 +22,18 @@ class Frontpage extends React.Component {
 
 Frontpage.propTypes = {
   todos: React.PropTypes.array,
+  loggedTodos: React.PropTypes.array,
 }
 
 Frontpage.defaultProps = {
   todos: [],
+  loggedTodos: [],
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
     todos: state.cms.todos,
+    loggedTodos: state.cms.loggedTodos,
   }
 }
 
@@ -35,11 +42,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onClick: (text) => {
       dispatch(addToDo(nextTodoId++, text));
     },
-    onToggle: (id) => {
-      dispatch(toggleToDo(id));
-    },
-    onIncrement: (id) => {
-      dispatch(incrementToDoCount(id));
+    onLog: (id, text, notes) => {
+      dispatch(logToDo(id, text, notes));
     },
   }
 }
