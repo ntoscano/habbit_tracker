@@ -16,3 +16,10 @@ export function getPostsData(slug, tagSlug, authorSlug) {
     authorSlug,
   };
 }
+
+export function addToDo(name) {
+  return {
+    type: constants.ADD_TO_DO,
+    name,
+  };
+}
