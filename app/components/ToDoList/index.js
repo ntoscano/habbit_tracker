@@ -1,6 +1,5 @@
 import React from 'react';
 import cx from 'classnames';
-import { Link } from 'react-router'
 
 import style from './index.scss';
 
@@ -9,9 +8,9 @@ class ToDoList extends React.Component {
   render() {
     const todos = this.props.todos.map((todo, index) => {
       return (
-        <li key={index} onClick={() => {console.log('clicked todo')}}
+        <li key={index} onClick={() => {this.props.onIncrement(index)}}
           className={todo.completed ? cx(style.complete, 'test') : cx(style.incomplete, 'test')}>
-          {todo.text}
+          {todo.text} ({todo.count})
         </li>
       );
     });
@@ -27,10 +26,14 @@ class ToDoList extends React.Component {
 
 ToDoList.propTypes = {
   todos: React.PropTypes.array,
+  onToggle: React.PropTypes.func,
+  onIncrement: React.PropTypes.func,
 };
 
 ToDoList.defaultProps = {
   todos: [],
+  onToggle: undefined,
+  onIncrement: undefined,
 }
 
 export default ToDoList;

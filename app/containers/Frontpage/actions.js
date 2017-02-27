@@ -7,3 +7,17 @@ export function addToDo(id, text) {
     text,
   };
 }
+
+export function toggleToDo(id) {
+  return {
+    type: constants.TOGGLE_TO_DO,
+    id,
+  };
+}
+
+export function incrementToDoCount(id) {
+  return {
+    type: constants.INCREMENT_TODO_COUNT,
+    id,
+  };
+}
