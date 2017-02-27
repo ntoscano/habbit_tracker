@@ -10,9 +10,9 @@ class Frontpage extends React.Component {
   render() {
     return (
       <div>
-        <AddToDo onClick={this.props.onClick} />
+        <AddToDo onClick={this.props.onClickAdd} />
         Tasks:
-        <ToDoList todos={this.props.todos} onLog={this.props.onLog} />
+        <ToDoList todos={this.props.todos} onLog={this.props.onClickLog} />
         Logged Tasks:
         <LoggedToDoList loggedTodos={this.props.loggedTodos} />
       </div>
@@ -39,10 +39,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClick: (text) => {
+    onClickAdd: (text) => {
       dispatch(addToDo(nextTodoId++, text));
     },
-    onLog: (id, text, notes) => {
+    onClickLog: (id, text, notes) => {
       dispatch(logToDo(id, text, notes));
     },
   }
