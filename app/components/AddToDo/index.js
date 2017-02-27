@@ -11,7 +11,7 @@ class AddToDo extends React.Component {
         <input ref={node => {
           input = node;
         }} />
-        <button onClick={() => {this.props.onClick(input.value); input.value='';}}>Add TODO</button>
+        <button onClick={() => {this.props.onClick(input.value); input.value='';}}>Add Task</button>
       </div>
     )
   }
