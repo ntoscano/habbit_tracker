@@ -8,7 +8,7 @@ class ToDoList extends React.Component {
   render() {
     const todos = this.props.todos.map((todo, index) => {
       return (
-        <li key={index}>
+        <li key={todo.id}>
           <LogToDo todo={todo} onClick={(notes) => {this.props.onLog(todo.id, todo.text, notes)}} />
         </li>
       );
