@@ -4,6 +4,7 @@ import ToDoList from 'Bitmatica/components/ToDoList';
 import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
 import {addToDo, logToDo} from './actions';
+import {v4} from 'node-uuid';
 
 let nextTodoId = 0;
 class Frontpage extends React.Component {
@@ -40,7 +41,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClickAdd: (text) => {
-      dispatch(addToDo(nextTodoId++, text));
+      dispatch(addToDo(v4(), text));
     },
     onClickLog: (id, text, notes) => {
       dispatch(logToDo(id, text, notes));
