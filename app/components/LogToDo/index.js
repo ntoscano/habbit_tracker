@@ -8,7 +8,7 @@ class LogToDo extends React.Component {
     let input;
     return (
       <div className={cx(style.component, 'test')}>
-        Task: {this.props.todo.text}, Count: {this.props.todo.count}
+        Task: {this.props.todo.text}, Count: {this.props.todo.count}, Id: {this.props.todo.id}
         <p>
           Notes: <input ref={node => {
             input = node;
