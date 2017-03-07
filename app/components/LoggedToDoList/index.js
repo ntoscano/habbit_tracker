@@ -8,15 +8,22 @@ class LoggedToDoList extends React.Component {
   render() {
     const todos = this.props.loggedTodos.map((todo, index) => {
       return (
-        <li key={index}>
-          Task: {todo.text}, Notes: {todo.notes}
+        <li className="list-group-item" key={index}>
+          <div>
+            <p>
+              Task: {todo.text}
+            </p>
+            <p>
+              Notes: {todo.notes}
+            </p>
+          </div>
         </li>
       );
     });
     return (
       <div>
         <div>
-          <ul>{todos}</ul>
+          <ul className="list-group">{todos}</ul>
         </div>
       </div>
     )

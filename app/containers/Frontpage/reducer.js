@@ -7,12 +7,29 @@ const initialState = {
 
 export default function addToDoReducer(state = initialState, action) {
   switch (action.type) {
+
+    case constants.ADD_SUBTASK:
+      return {
+        todos: state.todos.concat([{
+          id: action.id,
+          text: action.text,
+          count: 0,
+          parentTaskId: action.parentTaskId,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        }]),
+        loggedTodos : state.loggedTodos,
+      }
+      break;
     case constants.ADD_TO_DO:
       return {
           todos: state.todos.concat([{
             id: action.id,
             text: action.text,
             count: 0,
+            parentTaskId: null,
+            createdAt: new Date(),
+            updatedAt: new Date(),
           }]),
           loggedTodos : state.loggedTodos,
         };
@@ -25,12 +42,15 @@ export default function addToDoReducer(state = initialState, action) {
           }
           return Object.assign({}, todo, {
             count: ++todo.count,
+            updatedAt: new Date(),
           })
         }),
           loggedTodos: state.loggedTodos.concat([{
             todoId: action.todoId,
             text: action.text,
             notes: action.notes,
+            createdAt: new Date(),
+            updatedAt: new Date(),
           }]),
         };
       break;

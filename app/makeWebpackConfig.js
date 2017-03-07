@@ -48,7 +48,7 @@ const makeWebpackConfig = function(options) {
           test: /\.scss$/,
           use: ExtractTextPlugin.extract([
             { loader: 'css-loader', options: { modules: true, sourceMap: true } },
-            { loader: 'sass-loader', options: { sourceMap: true } }
+            { loader: 'sass-loader', options: { includePaths: ['node_modules'], sourceMap: true } }
           ])
         },
         {

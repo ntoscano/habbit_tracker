@@ -3,19 +3,23 @@ import {connect, dispatch} from 'react-redux';
 import ToDoList from 'Bitmatica/components/ToDoList';
 import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
-import {addToDo, logToDo} from './actions';
+import {addToDo, logToDo, addSubTask} from './actions';
 import {v4} from 'node-uuid';
+import style from './index.scss';
 
 let nextTodoId = 0;
 class Frontpage extends React.Component {
   render() {
     return (
       <div>
-        <AddToDo onClick={this.props.onClickAdd} />
-        Tasks:
-        <ToDoList todos={this.props.todos} onLog={this.props.onClickLog} />
-        Logged Tasks:
-        <LoggedToDoList loggedTodos={this.props.loggedTodos} />
+        <div>
+          <div className="page-header">
+            <h2>Tasks</h2>
+          </div>
+          <ToDoList todos={this.props.todos} onLog={this.props.onClickLog} onAddSubTask={this.props.onClickAddSubTask} />
+          <AddToDo className={style.page} onClick={this.props.onClickAdd} />
+          <LoggedToDoList loggedTodos={this.props.loggedTodos} />
+        </div>
       </div>
     )
   }
@@ -40,6 +44,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    onClickAddSubTask: (parentTaskId, text) => {
+      dispatch(addSubTask(v4(), parentTaskId, text));
+    },
     onClickAdd: (text) => {
       dispatch(addToDo(v4(), text));
     },
