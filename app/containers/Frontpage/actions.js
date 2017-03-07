@@ -16,3 +16,12 @@ export function logToDo(todoId, text, notes) {
     notes,
   };
 }
+
+export function addSubTask(id, parentTaskId, text) {
+  return {
+    type: constants.ADD_SUBTASK,
+    id,
+    parentTaskId,
+    text,
+  }
+}
