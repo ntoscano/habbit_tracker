@@ -14,11 +14,11 @@ class AddToDo extends React.Component {
     return (
       <div className={cx(style.component, 'test')}>
         <div className="input-group">
-          <input className="form-control" placeholder="Task name..." ref={node => {
+          <input className="form-control" placeholder="New Task Name..." ref={node => {
             input = node;
           }} />
           <span className="input-group-btn">
-            <button className="btn btn-success" type="button" onClick={() => {if (input.value) {this.props.onClick(input.value); input.value='';}}}>Add</button>
+            <button className="btn btn-secondary" type="button" onClick={() => {if (input.value) {this.props.onClick(input.value); input.value='';}}}>Add</button>
           </span>
         </div>
       </div>

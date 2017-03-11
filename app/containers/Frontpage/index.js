@@ -18,7 +18,7 @@ class Frontpage extends React.Component {
           </div>
           <ToDoList todos={this.props.todos} onLog={this.props.onClickLog} onAddSubTask={this.props.onClickAddSubTask} />
           <AddToDo className={style.page} onClick={this.props.onClickAdd} />
-          <LoggedToDoList loggedTodos={this.props.loggedTodos} />
+          {/*<LoggedToDoList loggedTodos={this.props.loggedTodos} />*/}
         </div>
       </div>
     )
