@@ -22,6 +22,7 @@ class ToDo extends React.Component {
   render() {
 
     const subTasks = this.props.subTasks.map((task, index) => {
+
       const diff = new Date() - task.updatedAt;
       let badgeColor;
       if (diff/1000 < 86400) {
@@ -32,22 +33,24 @@ class ToDo extends React.Component {
         badgeColor = 'badge-dange';
       }
       return (
-        <a onClick={() => {this.props.onClick(task.id, task.text, 'some notes')}} className="list-group-item list-group-item-action justify-content-between" key={task.id}>{task.text}<span className={'badge badge-default badge-pill '+badgeColor}>{timeDifference(new Date(), task.updatedAt)}</span></a>
+        <div className="list-group-item list-group-item-action justify-content-between" key={task.id}>
+          {task.text}<button className="btn btn-success" type="button" onClick={() => {this.props.onClick(task.id, task.text, 'some notes')}}>Log</button>
+        </div>
       );
     });
     let input;
     return (
       <div>
-      <h3 className="card-header">{this.props.todo.text} {timeDifference(new Date(), this.props.todo.updatedAt)}</h3>
+      <h3 className="card-header">{this.props.todo.text}</h3>
         <div className="list-group list-group-flush">
           {subTasks}
         </div>
         <div className="input-group">
-          <input className="form-control" placeholder="Subtask name..." ref={node => {
+          <input className="form-control" placeholder="New Subtask Name..." ref={node => {
             input = node;
           }} />
           <span className="input-group-btn">
-            <button className="btn btn-success" type="button" onClick={() => {if (input.value) {this.props.onClickAddSubTask(input.value); input.value='';}}}>Add</button>
+            <button className="btn btn-secondary" type="button" onClick={() => {if (input.value) {this.props.onClickAddSubTask(input.value); input.value='';}}}>Add</button>
           </span>
         </div>
       </div>
