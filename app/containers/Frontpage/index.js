@@ -6,6 +6,7 @@ import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
 import {addToDo, logToDo, addSubTask} from './actions';
 import {v4} from 'node-uuid';
 import style from './index.scss';
+import { Link } from 'react-router-dom'
 
 let nextTodoId = 0;
 class Frontpage extends React.Component {
@@ -16,6 +17,7 @@ class Frontpage extends React.Component {
           <div className="page-header">
             <h2>Tasks</h2>
           </div>
+          <Link to="/404">error</Link>
           <ToDoList todos={this.props.todos} onLog={this.props.onClickLog} onAddSubTask={this.props.onClickAddSubTask} />
           <AddToDo className={style.page} onClick={this.props.onClickAdd} />
           <LoggedToDoList loggedTodos={this.props.loggedTodos} />
