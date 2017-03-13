@@ -1,12 +1,12 @@
 import React from "react";
-import {Router, Route, IndexRoute} from "react-router";
+import { Route } from 'react-router-dom'
 
 import Frontpage from 'Bitmatica/containers/Frontpage';
 import ErrorPage from 'Bitmatica/containers/ErrorPage';
 
-export default (history) => (
-  <Router history={history}>
-    <Route path="/" component={Frontpage} />
+export default () => (
+  <div>
+    <Route exact path="/" component={Frontpage} />
     <Route path="/404" component={ErrorPage} />
-  </Router>
+  </div>
 );
