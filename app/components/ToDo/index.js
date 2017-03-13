@@ -2,6 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import style from './index.scss';
 import Subtask from 'Bitmatica/components/Subtask';
+import { Link } from 'react-router-dom';
 
 class ToDo extends React.Component {
 
@@ -15,6 +16,7 @@ class ToDo extends React.Component {
     let input;
     return (
       <div>
+      <Link to="/tasks">error</Link>
       <h3 className="card-header">{this.props.todo.text}</h3>
         <div className="list-group list-group-flush">
           {subTasks}

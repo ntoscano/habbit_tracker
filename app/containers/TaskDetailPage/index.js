@@ -7,7 +7,7 @@ class TaskDetailPage extends React.Component {
     return (
       <div>
         <div>
-          This is a task detail page
+          This is a task detail page: {this.props.id}
         </div>
       </div>
     );
@@ -15,18 +15,23 @@ class TaskDetailPage extends React.Component {
 }
 
 TaskDetailPage.propTypes = {
+
 }
 
 TaskDetailPage.defaultProps = {
+  id: React.PropTypes.string,
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log('ownProps.location: ' + ownProps.location.keys);
   return {
+    id: ownProps.location.query
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+
   }
 }
 
