@@ -16,19 +16,15 @@ class ToDo extends React.Component {
     let input;
     return (
       <div>
-      <Link to="/tasks">error</Link>
-      <h3 className="card-header">{this.props.todo.text}</h3>
-        <div className="list-group list-group-flush">
-          {subTasks}
+        <Link to={"/tasks/" + this.props.todo.id}>
+        <div className="card card-inverse card-primary mb-3 text-center">
+          <div className="card-block">
+            <blockquote className="card-blockquote">
+              <h4>{this.props.todo.text}</h4>
+            </blockquote>
+          </div>
         </div>
-        <div className="input-group">
-          <input className="form-control" placeholder="New Subtask Name..." ref={node => {
-            input = node;
-          }} />
-          <span className="input-group-btn">
-            <button className="btn btn-secondary" type="button" onClick={() => {if (input.value) {this.props.onClickAddSubTask(input.value); input.value='';}}}>Add</button>
-          </span>
-        </div>
+        </Link>
       </div>
     )
   }

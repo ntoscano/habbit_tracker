@@ -18,6 +18,7 @@ export function logToDo(todoId, text, notes) {
 }
 
 export function addSubTask(id, parentTaskId, text) {
+  console.log('addSubTask ' + text);
   return {
     type: constants.ADD_SUBTASK,
     id,

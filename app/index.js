@@ -8,6 +8,8 @@ import { createStore, combineReducers } from "redux";
 import { Provider } from 'react-redux'
 import { AppContainer } from 'react-hot-loader';
 
+import { syncHistoryWithStore, routerReducer } from "react-router-redux";
+
 import routes from 'Bitmatica/routes';
 import frontpageReducer from 'Bitmatica/containers/Frontpage/reducer';
 
@@ -17,6 +19,7 @@ const persistedState = loadState();
 const store = createStore(
   combineReducers({
     cms: frontpageReducer,
+    routing: routerReducer,
   }),
   persistedState
 );
