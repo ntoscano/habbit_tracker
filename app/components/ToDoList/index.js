@@ -14,7 +14,7 @@ class ToDoList extends React.Component {
         return todo.id === aTask.parentTaskId
       })
       return (
-        <div className="card" key={todo.id}>
+        <div>
           <ToDo
             todo={todo}
             subTasks={subTasks}
