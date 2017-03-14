@@ -1,9 +1,10 @@
 import constants from "./constants";
 
-export function addToDo(id, text) {
+export function addToDo(id, parentTaskId, text) {
   return {
     type: constants.ADD_TO_DO,
     id,
+    parentTaskId,
     text,
   };
 }
@@ -15,14 +16,4 @@ export function logToDo(todoId, text, notes) {
     text,
     notes,
   };
-}
-
-export function addSubTask(id, parentTaskId, text) {
-  console.log('addSubTask ' + text);
-  return {
-    type: constants.ADD_SUBTASK,
-    id,
-    parentTaskId,
-    text,
-  }
 }

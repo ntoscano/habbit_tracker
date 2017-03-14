@@ -7,27 +7,13 @@ const initialState = {
 
 export default function addToDoReducer(state = initialState, action) {
   switch (action.type) {
-
-    case constants.ADD_SUBTASK:
-      return {
-        todos: state.todos.concat([{
-          id: action.id,
-          text: action.text,
-          count: 0,
-          parentTaskId: action.parentTaskId,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        }]),
-        loggedTodos : state.loggedTodos,
-      }
-      break;
     case constants.ADD_TO_DO:
       return {
           todos: state.todos.concat([{
             id: action.id,
             text: action.text,
             count: 0,
-            parentTaskId: null,
+            parentTaskId: action.parentTaskId,
             createdAt: new Date(),
             updatedAt: new Date(),
           }]),
