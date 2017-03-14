@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import style from './index.scss';
 
-class Subtask extends React.Component {
+class ParentTask extends React.Component {
 
   constructor() {
     super();
@@ -19,7 +19,7 @@ class Subtask extends React.Component {
   render() {
     let notesInput;
     return (
-      <div className="list-group-item list-group-item-action justify-content-between" key={this.props.task.id}>
+      <div className="list-group-item list-group-item-action justify-content-between active" key={this.props.task.id}>
         {this.props.task.text}
         <div className="form-check form-check-inline">
           <label className="form-check-label">
@@ -39,14 +39,14 @@ class Subtask extends React.Component {
     )};
 }
 
-Subtask.propTypes = {
+ParentTask.propTypes = {
   onLogTask: React.PropTypes.func,
   task: React.PropTypes.object,
 };
 
-Subtask.defaultProps = {
+ParentTask.defaultProps = {
   onLogTask: undefined,
   task: {},
 }
 
-export default Subtask;
+export default ParentTask;

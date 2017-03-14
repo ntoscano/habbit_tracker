@@ -10,16 +10,9 @@ class ToDoList extends React.Component {
       return todo.parentTaskId === null;
     }).map((todo, index) => {
 
-      const subTasks = this.props.todos.filter((aTask) => {
-        return todo.id === aTask.parentTaskId
-      })
       return (
         <div>
-          <ToDo
-            todo={todo}
-            subTasks={subTasks}
-            onClick={(id, text, notes) => {this.props.onLog(id, text, notes)}}
-            onClickAddSubTask={(text) => {this.props.onAddSubTask(todo.id, text)}} />
+          <ToDo todo={todo}/>
         </div>
       );
     });
@@ -31,14 +24,10 @@ class ToDoList extends React.Component {
 
 ToDoList.propTypes = {
   todos: React.PropTypes.array,
-  onLog: React.PropTypes.func,
-  onAddSubTask: React.PropTypes.func,
 };
 
 ToDoList.defaultProps = {
   todos: [],
-  onLog: undefined,
-  onAddSubTask: undefined,
 }
 
 export default ToDoList;

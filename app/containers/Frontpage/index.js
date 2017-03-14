@@ -16,7 +16,7 @@ class Frontpage extends React.Component {
           <div className="page-header">
             <h2>Tasks</h2>
           </div>
-          <ToDoList todos={this.props.todos} onLog={this.props.onClickLog} onAddSubTask={this.props.onClickAddSubTask} />
+          <ToDoList todos={this.props.todos} />
           <AddToDo className={style.page} onClick={this.props.onClickAdd} />
           <LoggedToDoList loggedTodos={this.props.loggedTodos} />
         </div>
@@ -44,9 +44,6 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClickAddSubTask: (parentTaskId, text) => {
-      dispatch(addSubTask(v4(), parentTaskId, text));
-    },
     onClickAdd: (text) => {
       dispatch(addToDo(v4(), text));
     },

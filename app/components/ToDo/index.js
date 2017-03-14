@@ -7,13 +7,6 @@ import { Link } from 'react-router-dom';
 class ToDo extends React.Component {
 
   render() {
-    const subTasks = this.props.subTasks.map((task, index) => {
-      let notesInput;
-      return (
-        <Subtask onClick={this.props.onClick} task={task} />
-      );
-    });
-    let input;
     return (
       <div>
         <Link to={"/tasks/" + this.props.todo.id}>
@@ -31,17 +24,11 @@ class ToDo extends React.Component {
 }
 
 ToDo.propTypes = {
-  onClick: React.PropTypes.func,
   todo: React.PropTypes.object,
-  onClickAddSubTask: React.PropTypes.func,
-  subTasks: React.PropTypes.array,
 };
 
 ToDo.defaultProps = {
-  onClick: undefined,
   todo: {},
-  onClickAddSubTask: undefined,
-  subTasks: [],
 }
 
 export default ToDo;
