@@ -12,7 +12,7 @@ class ToDoList extends React.Component {
     }).map((todo, index) => {
 
       return (
-        <div>
+        <div key={todo.id}>
           <ToDo todo={todo}/>
         </div>
       );
