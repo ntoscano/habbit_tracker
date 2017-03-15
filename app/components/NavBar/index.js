@@ -1,6 +1,7 @@
 import React from 'react';
 import style from './index.scss';
 import { Link } from 'react-router-dom';
+import { browserHistory } from 'react-router'
 
 class NavBar extends React.Component {
 
@@ -14,7 +15,7 @@ class NavBar extends React.Component {
           <div className="navbar-collapse collapse dual-collapse">
               {this.props.backButton && <ul className="navbar-nav mr-auto">
                   <li className="nav-item active">
-                      <Link to="/" className="nav-link">Back</Link>
+                      <a className="nav-link" href="#" onClick={() => {browserHistory.goBack()}}>Back</a>
                   </li>
               </ul>}
           </div>
