@@ -2,27 +2,16 @@ import React from 'react';
 import style from './index.scss';
 import {connect, dispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
-import TaskDetails from 'Bitmatica/components/TaskDetails';
-import NavBar from 'Bitmatica/components/NavBar';
-import {addToDo, logToDo, addSubTask} from 'Bitmatica/containers/Frontpage/actions';
-import {v4} from 'node-uuid';
+import {editToDo} from 'Bitmatica/containers/Frontpage/actions';
 
-
-class TaskDetailPage extends React.Component {
+class TaskEditPage extends React.Component {
   render() {
-    const subTasks = this.props.subTasks.map((task, index) => {
-      let notesInput;
-      return (
-        <TaskDetails onLogTask={this.props.onClickLog} task={task} />
-      );
-    });
-    let input;
     return (
       <div>
         <NavBar backButton={true} />
         <p></p>
         <div className="card-columns">
-          <div className="card">
+          <div className="card"  onClick={() => {console.log('editing task '+this.props.task);;this.props.onClickSaveEdit(this.props.task.id, "a new task name", true)}}>
             <div className="list-group list-group-flush">
               <TaskDetails onLogTask={this.props.onClickLog} task={this.props.task} />
               {subTasks}
@@ -45,13 +34,13 @@ class TaskDetailPage extends React.Component {
 TaskDetailPage.propTypes = {
   id: React.PropTypes.string,
   task: React.PropTypes.object,
-  subTasks: React.PropTypes.array,
+  onClickSaveEdit: React.PropTypes.func,
 }
 
 TaskDetailPage.defaultProps = {
   id: "",
   task: {},
-  subTasks: [],
+  onClickSaveEdit: undefined,
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -61,10 +50,6 @@ const mapStateToProps = (state, ownProps) => {
     return task.id === currentId;
   })[0];
 
-  let subTasks = state.cms.todos.filter((task) => {
-    return task.parentTaskId === currentId;
-  });
-
   return {
     task,
     subTasks,
@@ -73,13 +58,10 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClickAddTask: (parentTaskId, text) => {
-      dispatch(addToDo(v4(), parentTaskId, text));
-    },
-    onClickLog: (id, text, notes) => {
-      dispatch(logToDo(id, text, notes));
+    onClickSaveEdit: (id, text, sticky) => {
+      dispatch(editToDo(id, text, sticky));
     },
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskDetailPage);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskEditPage);
