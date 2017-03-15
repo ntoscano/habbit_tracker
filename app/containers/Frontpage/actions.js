@@ -17,3 +17,12 @@ export function logToDo(todoId, text, notes) {
     notes,
   };
 }
+
+export function editToDo(id, text, sticky) {
+  return {
+    type: constants.EDIT_TODO,
+    id,
+    text,
+    sticky,
+  };
+}

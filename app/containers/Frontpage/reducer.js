@@ -16,6 +16,7 @@ export default function addToDoReducer(state = initialState, action) {
             parentTaskId: action.parentTaskId,
             createdAt: new Date(),
             updatedAt: new Date(),
+            sticky: action.parentTaskId ? false : true,
           }]),
           loggedTodos : state.loggedTodos,
         };
@@ -40,6 +41,22 @@ export default function addToDoReducer(state = initialState, action) {
           }]),
         };
       break;
+    case constants.EDIT_TODO:
+      return {
+        todos: state.todos.map((todo, index) => {
+          if (todo.id !== action.id) {
+            return todo;
+          }
+          return Object.assign({}, todo, {
+            text: action.text,
+            sticky: action.sticky,
+            updatedAt: new Date(),
+          })
+        }),
+        loggedTodos : state.loggedTodos,
+        };
+      break;
+
     default:
       return state;
   }
