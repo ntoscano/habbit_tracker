@@ -22,6 +22,7 @@ const store = createStore(
     routing: routerReducer,
   }),
   persistedState
+  // undefined
 );
 
 store.subscribe(() => {
@@ -39,7 +40,13 @@ const render = (Component) => {
   );
 };
 const App = routes;
-render(<Router><App /></Router>);
+render(
+  <div>
+    <Router>
+      <App />
+    </Router>
+  </div>
+);
 
 // Hot Module Replacement API
 if (module.hot) {

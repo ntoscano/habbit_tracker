@@ -1,33 +1,41 @@
 import React from 'react';
 import style from './index.scss';
 import {connect, dispatch} from 'react-redux';
-import Subtask from 'Bitmatica/components/Subtask';
-import ParentTask from 'Bitmatica/components/ParentTask';
+import { Link } from 'react-router-dom';
+import TaskDetails from 'Bitmatica/components/TaskDetails';
+import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, logToDo, addSubTask} from 'Bitmatica/containers/Frontpage/actions';
 import {v4} from 'node-uuid';
+
 
 class TaskDetailPage extends React.Component {
   render() {
     const subTasks = this.props.subTasks.map((task, index) => {
       let notesInput;
       return (
-        <Subtask onLogTask={this.props.onClickLog} task={task} />
+        <TaskDetails onLogTask={this.props.onClickLog} task={task} />
       );
     });
     let input;
     return (
       <div>
-        <ParentTask onLogTask={this.props.onClickLog} task={this.props.task} />
-        <div className="list-group list-group-flush">
-          {subTasks}
-        </div>
-        <div className="input-group">
-          <input className="form-control" placeholder="New Subtask Name..." ref={node => {
-            input = node;
-          }} />
-          <span className="input-group-btn">
-            <button className="btn btn-secondary" type="button" onClick={() => {if (input.value) {this.props.onClickAddTask(this.props.task.id, input.value); input.value='';}}}>Add</button>
-          </span>
+        <NavBar backButton={true} />
+        <p></p>
+        <div className="card-columns">
+          <div className="card">
+            <div className="list-group list-group-flush">
+              <TaskDetails onLogTask={this.props.onClickLog} task={this.props.task} />
+              {subTasks}
+              <div className="input-group">
+                <input className="form-control" placeholder="New Subtask Name..." ref={node => {
+                  input = node;
+                }} />
+                <span className="input-group-btn">
+                  <button className="btn btn-secondary" type="button" onClick={() => {if (input.value) {this.props.onClickAddTask(this.props.task.id, input.value); input.value='';}}}>Add</button>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     )
