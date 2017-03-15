@@ -3,6 +3,7 @@ import {connect, dispatch} from 'react-redux';
 import ToDoList from 'Bitmatica/components/ToDoList';
 import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
+import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, logToDo, addSubTask} from './actions';
 import {v4} from 'node-uuid';
 import style from './index.scss';
@@ -12,10 +13,9 @@ class Frontpage extends React.Component {
   render() {
     return (
       <div>
+        <NavBar backButton={false} />
+        <p></p>
         <div>
-          <div className="page-header">
-            <h2>Tasks</h2>
-          </div>
           <ToDoList todos={this.props.todos} onClickAddTask={this.props.onClickAdd}/>
           <LoggedToDoList loggedTodos={this.props.loggedTodos} />
         </div>
