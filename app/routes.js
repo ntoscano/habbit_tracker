@@ -10,7 +10,6 @@ export default () => (
   <div>
     <Route exact path="/" component={Frontpage} />
     <Route path="/404" component={ErrorPage} />
-    // <Route exact path="{`${match.url}/tasks/:id`}" component={TaskDetailPage} />
     <Route exact path="/tasks/:id" component={TaskDetailPage} />
     <Route exact path="/tasks/:id/edit" component={TaskEditPage} />
   </div>
