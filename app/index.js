@@ -21,8 +21,8 @@ const store = createStore(
     cms: frontpageReducer,
     routing: routerReducer,
   }),
-  persistedState
-  // undefined
+  // persistedState
+  undefined
 );
 
 store.subscribe(() => {

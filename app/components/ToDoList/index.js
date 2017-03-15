@@ -8,7 +8,7 @@ class ToDoList extends React.Component {
 
   render() {
     const todos = this.props.todos.filter((todo) => {
-      return todo.parentTaskId === null;
+      return todo.sticky;
     }).map((todo, index) => {
 
       return (
