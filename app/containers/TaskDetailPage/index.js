@@ -13,7 +13,7 @@ class TaskDetailPage extends React.Component {
     const subTasks = this.props.subTasks.map((task, index) => {
       let notesInput;
       return (
-        <TaskDetails onLogTask={this.props.onClickLog} task={task} />
+        <TaskDetails onLogTask={this.props.onClickLog} task={task} key={task.id} />
       );
     });
     let input;
