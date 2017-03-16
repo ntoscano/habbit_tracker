@@ -76,17 +76,18 @@ class TaskDetailPage extends React.Component {
             <div className="list-group list-group-flush">
               {subTasks}
               <div className="text-right">
-                <button className="btn btn-secondary" type="button" onClick={() => {browserHistory.goBack()}}>Cancel</button>
                 <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
               </div>
-              <div className="input-group">
-                <input className="form-control" placeholder="Add subtask..." ref={node => {
-                  input = node;
-                }} />
-                <span className="input-group-btn">
-                  <button className="btn btn-secondary" type="button" onClick={() => {if (input.value) {this.props.onClickAddTask(this.props.task.id, input.value); input.value='';}}}>Add</button>
-                </span>
-              </div>
+            </div>
+          </div>
+          <div className="card">
+            <div className="input-group">
+              <input className="form-control" placeholder="Add subtask..." ref={node => {
+                input = node;
+              }} />
+              <span className="input-group-btn">
+                <button className="btn btn-secondary" type="button" onClick={() => {if (input.value) {this.props.onClickAddTask(this.props.task.id, input.value); input.value='';}}}>Add</button>
+              </span>
             </div>
           </div>
         </div>
