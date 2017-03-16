@@ -20,8 +20,7 @@ class TaskDetailPage extends React.Component {
     }
   }
 
-  onToggleEntry (id) {
-    let currentValue = this.state.taskIdsToLog[id] ? true : false;
+  onToggleEntry (id, currentValue) {
     this.setState({
       taskIdsToLog: Object.assign({}, this.state.taskIdsToLog,{
         [id]: !currentValue,
@@ -61,7 +60,7 @@ class TaskDetailPage extends React.Component {
     const subTasks = [this.props.task].concat(this.props.subTasks).map((task, index) => {
       let notesInput;
       return (
-        <TaskDetails onLogTask={this.props.onClickLog} task={task} key={task.id} onToggleEntry={(id) => this.onToggleEntry(id)} onChangeNotes={(id, notes) => this.onChangeNotes(id, notes)} />
+        <TaskDetails onLogTask={this.props.onClickLog} task={task} defaultShowNotesField={task.parentTaskId ? false : true} showNotesField={this.state.taskIdsToLog[task.id]} key={task.id} onToggleEntry={(id, currentValue) => this.onToggleEntry(id, currentValue)} onChangeNotes={(id, notes) => this.onChangeNotes(id, notes)} />
       );
     });
     let input;
