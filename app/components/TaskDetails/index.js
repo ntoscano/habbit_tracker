@@ -5,23 +5,16 @@ import { Link } from 'react-router-dom';
 
 class TaskDetails extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-      hasToggled: false,
+  toggleNotesField () {
+    this.props.onToggleEntry(this.props.task.id, this.props.showNotesField);
+  }
+
+  componentDidMount () {
+    if (!this.props.task.parentTaskId) {
+      this.props.onToggleEntry(this.props.task.id, false);
     }
   }
 
-  toggleNotesField () {
-    if (!this.state.hasToggled) {
-      this.props.onToggleEntry(this.props.task.id, this.props.defaultShowNotesField);
-    } else {
-      this.props.onToggleEntry(this.props.task.id, this.props.showNotesField);
-    }
-    this.setState({
-      hasToggled: true,
-    });
-  }
   render() {
     let notesInput;
     return (
@@ -32,7 +25,7 @@ class TaskDetails extends React.Component {
           <button type="button" className="btn btn-secondary" onClick={(event) => {this.toggleNotesField()}}>Log</button>
         </div>
 
-        {((!this.state.hasToggled && this.props.defaultShowNotesField) || (this.state.hasToggled && this.props.showNotesField)) && <div className="input-group">
+        {this.props.showNotesField && <div className="input-group">
           <input className="form-control" placeholder="Notes..." onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}} />
         </div>}
       </div>
@@ -45,7 +38,6 @@ TaskDetails.propTypes = {
   onToggleEntry: React.PropTypes.func,
   onChangeNotes: React.PropTypes.func,
   showNotesField: React.PropTypes.bool,
-  defaultShowNotesField: React.PropTypes.bool,
 };
 
 TaskDetails.defaultProps = {
@@ -54,7 +46,6 @@ TaskDetails.defaultProps = {
   onToggleEntry: undefined,
   onChangeNotes: undefined,
   showNotesField: false,
-  defaultShowNotesField: false,
 }
 
 export default TaskDetails;
