@@ -46,7 +46,7 @@ class TaskDetailPage extends React.Component {
     }).map((id, index) => {
 
       let task = this.props.task.id === id ? this.props.task : this.props.subTasks.filter((task) => {
-        return task.id === this.props.task.id
+        return task.id === id
       })[0];
 
       return {
