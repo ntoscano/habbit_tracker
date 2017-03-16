@@ -8,15 +8,19 @@ class TaskDetails extends React.Component {
   constructor() {
     super();
     this.state = {
-      showNotesField: false,
+      hasToggled: false,
     }
   }
 
   toggleNotesField () {
-    this.props.onToggleEntry(this.props.task.id);
+    if (!this.state.hasToggled) {
+      this.props.onToggleEntry(this.props.task.id, this.props.defaultShowNotesField);
+    } else {
+      this.props.onToggleEntry(this.props.task.id, this.props.showNotesField);
+    }
     this.setState({
-      showNotesField: !this.state.showNotesField,
-    })
+      hasToggled: true,
+    });
   }
   render() {
     let notesInput;
@@ -28,7 +32,7 @@ class TaskDetails extends React.Component {
           <button type="button" className="btn btn-secondary" onClick={(event) => {this.toggleNotesField()}}>Log</button>
         </div>
 
-        {this.state.showNotesField && <div className="input-group">
+        {((!this.state.hasToggled && this.props.defaultShowNotesField) || (this.state.hasToggled && this.props.showNotesField)) && <div className="input-group">
           <input className="form-control" placeholder="Notes..." onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}} />
         </div>}
       </div>
@@ -40,6 +44,8 @@ TaskDetails.propTypes = {
   task: React.PropTypes.object,
   onToggleEntry: React.PropTypes.func,
   onChangeNotes: React.PropTypes.func,
+  showNotesField: React.PropTypes.bool,
+  defaultShowNotesField: React.PropTypes.bool,
 };
 
 TaskDetails.defaultProps = {
@@ -47,6 +53,8 @@ TaskDetails.defaultProps = {
   task: {},
   onToggleEntry: undefined,
   onChangeNotes: undefined,
+  showNotesField: false,
+  defaultShowNotesField: false,
 }
 
 export default TaskDetails;
