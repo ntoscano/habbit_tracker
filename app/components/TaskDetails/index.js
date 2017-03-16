@@ -13,6 +13,7 @@ class TaskDetails extends React.Component {
   }
 
   toggleNotesField () {
+    this.props.onToggleEntry(this.props.task.id);
     this.setState({
       showNotesField: !this.state.showNotesField,
     })
@@ -30,12 +31,7 @@ class TaskDetails extends React.Component {
         </div>
 
         {this.state.showNotesField && <div className="input-group">
-          <input className="form-control" placeholder="Notes..." ref={node => {
-            notesInput = node;
-          }} />
-          <span className="input-group-btn">
-            <button className="btn btn-secondary" type="button" onClick={() => {this.props.onLogTask(this.props.task.id, this.props.task.text, notesInput.value);notesInput.value='';}}>Finish</button>
-          </span>
+          <input className="form-control" placeholder="Notes..." onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}} />
         </div>}
       </div>
     )};
@@ -44,11 +40,15 @@ class TaskDetails extends React.Component {
 TaskDetails.propTypes = {
   onLogTask: React.PropTypes.func,
   task: React.PropTypes.object,
+  onToggleEntry: React.PropTypes.func,
+  onChangeNotes: React.PropTypes.func,
 };
 
 TaskDetails.defaultProps = {
   onLogTask: undefined,
   task: {},
+  onToggleEntry: undefined,
+  onChangeNotes: undefined,
 }
 
 export default TaskDetails;
