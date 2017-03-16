@@ -23,11 +23,9 @@ class TaskDetails extends React.Component {
     return (
       <div className="list-group-item list-group-item-action justify-content-between  " key={this.props.task.id}>
         {this.props.task.text}
-        <Link to={"/tasks/" + this.props.task.id + "/edit"}>Edit</Link>
-        <div className="form-check form-check-inline">
-          <label className="form-check-label">
-            <input className="form-check-input" type="checkbox" id="inlineCheckbox1" value={this.props.task.id} onChange={(event) => {this.toggleNotesField()}} />
-          </label>
+        <div className="btn-group" role="group" aria-label="Logging Options">
+          <Link to={"/tasks/" + this.props.task.id + "/edit"} className="btn btn-secondary">Edit</Link>
+          <button type="button" className="btn btn-secondary" onClick={(event) => {this.toggleNotesField()}}>Log</button>
         </div>
 
         {this.state.showNotesField && <div className="input-group">
