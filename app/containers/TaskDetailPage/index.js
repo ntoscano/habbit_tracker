@@ -37,7 +37,6 @@ class TaskDetailPage extends React.Component {
         [id]: notes,
       }),
     })
-    console.log(this.state);
   }
 
   saveEntries () {
@@ -56,7 +55,6 @@ class TaskDetailPage extends React.Component {
       }
     });
     this.props.onCLickLogAll(entries);
-    console.log(entries);
   }
 
   render() {
