@@ -114,7 +114,7 @@ const mapStateToProps = (state, ownProps) => {
   let currentId = ownProps.location.pathname.substr(ownProps.location.pathname.lastIndexOf('/') + 1)
 
   let task = state.cms.todos.filter((task) => {
-    return task.id === currentId;
+    return task.id == currentId;
   })[0];
 
   let subTasks = state.cms.todos.filter((task) => {
@@ -129,8 +129,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClickAddTask: (parentTaskId, text) => {
-      dispatch(addToDo(v4(), parentTaskId, text));
+    onClickAddTask: (parentTaskId, name) => {
+      dispatch(addToDo(v4(), parentTaskId, name));
     },
     onClickLog: (id, text, notes) => {
       dispatch(logToDo(id, text, notes));
