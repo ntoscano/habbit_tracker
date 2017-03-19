@@ -30,7 +30,7 @@ const store = createStore(
   ),
 );
 
-store.dispatch(fetchToDos());
+store.dispatch(fetchToDos()); // Probably a better place to initiate this
 
 store.subscribe(() => {
   saveState(store.getState());
