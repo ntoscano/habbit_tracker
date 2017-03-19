@@ -1,5 +1,15 @@
 import constants from "./constants";
 
+// fetch('http://localhost:1337/task', {
+//   method: 'POST',
+//   body: JSON.stringify({
+//     name: action.text,
+//     sticky: action.parentTaskId ? false : true,
+//     parentTaskId: action.parentTaskId,
+//   }),
+// }).then(response => response.json())
+// .then(json => console.log(json));
+
 const initialState = {
   todos: [],
   loggedTodos: [],

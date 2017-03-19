@@ -1,18 +1,13 @@
 import React from 'react';
 import cx from 'classnames';
 import style from './index.scss';
-// <p>
-//   <input ref={node => {
-//     input = node;
-//   }} />
-//   <button onClick={() => {this.props.onClick(input.value); input.value='';}}>Add Task</button>
-//   </p>
+
 class AddToDo extends React.Component {
 
   render() {
     let input;
     return (
-      <div className={cx(style.component, 'test')}>
+      <div className="card">
         <div className="input-group">
           <input className="form-control" placeholder="New Task Name..." ref={node => {
             input = node;
