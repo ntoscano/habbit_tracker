@@ -1,15 +1,5 @@
 import constants from "./constants";
 
-// fetch('http://localhost:1337/task', {
-//   method: 'POST',
-//   body: JSON.stringify({
-//     name: action.text,
-//     sticky: action.parentTaskId ? false : true,
-//     parentTaskId: action.parentTaskId,
-//   }),
-// }).then(response => response.json())
-// .then(json => console.log(json));
-
 const initialState = {
   todos: [],
   loggedTodos: [],
@@ -17,6 +7,17 @@ const initialState = {
 
 export default function addToDoReducer(state = initialState, action) {
   switch (action.type) {
+    case constants.ADD_TO_DO:
+      fetch('http://localhost:1337/task', {
+        method: 'POST',
+        body: JSON.stringify({
+          name: action.text,
+          sticky: action.parentTaskId ? false: true,
+        }),
+      });
+      return state;
+      break;
+
     case constants.ADD_TO_DO:
       return {
           todos: state.todos.concat([{
