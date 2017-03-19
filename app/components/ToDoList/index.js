@@ -12,17 +12,13 @@ class ToDoList extends React.Component {
     }).map((todo, index) => {
 
       return (
-        <div key={todo.id}>
-          <ToDo todo={todo}/>
-        </div>
+        <ToDo todo={todo} key={todo.id}/>
       );
     });
     return (
         <div className="card-columns">
           {todos}
-          <div className="card">
-            <AddToDo className={style.page} onClick={this.props.onClickAddTask} />
-          </div>
+          <AddToDo className={style.page} onClick={this.props.onClickAddTask} />
         </div>
     )
   }
