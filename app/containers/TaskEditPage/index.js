@@ -19,7 +19,7 @@ class TaskEditPage extends React.Component {
             <div className="list-group list-group-flush">
               <div className="list-group-item">
                 <div className="input-group">
-                  <input className="form-control" defaultValue={this.props.task.text} placeholder="" ref={node => {
+                  <input className="form-control" defaultValue={this.props.task.name} placeholder="" ref={node => {
                     input = node;
                   }} />
                 </div>
