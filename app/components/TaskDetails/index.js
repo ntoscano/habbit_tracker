@@ -19,7 +19,7 @@ class TaskDetails extends React.Component {
     let notesInput;
     return (
       <div className="list-group-item list-group-item-action justify-content-between  " key={this.props.task.id}>
-        {this.props.task.text}
+        {this.props.task.name}
         <div className="btn-group" role="group" aria-label="Logging Options">
           <Link to={"/tasks/" + this.props.task.id + "/edit"} className="btn btn-secondary">Edit</Link>
           <button type="button" className="btn btn-secondary" onClick={(event) => {this.toggleNotesField()}}>Log</button>

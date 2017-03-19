@@ -10,7 +10,6 @@ class ToDoList extends React.Component {
     const todos = this.props.todos.filter((todo) => {
       return todo.sticky;
     }).map((todo, index) => {
-
       return (
         <ToDo todo={todo} key={todo.id}/>
       );

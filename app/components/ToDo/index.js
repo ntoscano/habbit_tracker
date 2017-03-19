@@ -7,12 +7,12 @@ class ToDo extends React.Component {
 
   render() {
     return (
-      <div>
+      <div key>
         <Link to={"/tasks/" + this.props.todo.id}>
         <div className="card card-inverse card-secondary mb-3 text-center">
           <div className="card-block">
             <blockquote className="card-blockquote">
-              <h4 className="text-muted">{this.props.todo.text}</h4>
+              <h4 className="text-muted">{this.props.todo.name}</h4>
             </blockquote>
           </div>
         </div>

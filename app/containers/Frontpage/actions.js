@@ -1,11 +1,61 @@
 import constants from "./constants";
 
-export function addToDo(id, parentTaskId, text) {
+// http://redux.js.org/docs/advanced/AsyncActions.html
+export function fetchToDos() {
+  return function (dispatch) {
+    dispatch(requestToDos())
+    return fetch('http://localhost:1337/task')
+      .then(response => response.json())
+      .then(json =>
+        dispatch(receiveToDos(json))
+      )
+  }
+}
+
+export function requestToDos() {
   return {
-    type: constants.ADD_TO_DO,
+    type: constants.FETCH_TODOS,
+  };
+}
+
+export function receiveToDos(todos) {
+  return {
+    type: constants.RECEIVE_TODOS,
+    todos,
+  };
+}
+
+export function addToDo(id, parentTaskId, name) {
+  return function (dispatch) {
+
+    dispatch(postToDo(id, parentTaskId, name))
+
+    return fetch('http://localhost:1337/task', {
+      method: 'POST',
+      body: JSON.stringify({
+        name: name,
+        sticky: parentTaskId ? false: true,
+      }),
+    }).then(response => response.json())
+    .then(json => {
+      dispatch(receiveToDo(json))
+    });
+  }
+}
+
+export function postToDo(id, parentTaskId, name) {
+  return {
+    type: constants.POST_TODO,
     id,
     parentTaskId,
-    text,
+    name,
+  };
+}
+
+export function receiveToDo(todo) {
+  return {
+    type: constants.RECEIVE_TODO,
+    todo,
   };
 }
 
