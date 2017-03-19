@@ -1,14 +1,20 @@
 import constants from "./constants";
 
+const config = {
+  basePath: 'http://localhost:1337/task',
+}
+config.taskPath = config.basePath + '/task';
+
 // http://redux.js.org/docs/advanced/AsyncActions.html
 export function fetchToDos() {
   return function (dispatch) {
     dispatch(requestToDos())
-    return fetch('http://localhost:1337/task')
+    return fetch(config.taskPath)
       .then(response => response.json())
       .then(json =>
         dispatch(receiveToDos(json))
       )
+      .catch(e => console.error('fetchToDoes failed', e));
   }
 }
 
@@ -30,7 +36,7 @@ export function addToDo(id, parentTaskId, name) {
 
     dispatch(postToDo(id, parentTaskId, name))
 
-    return fetch('http://localhost:1337/task', {
+    return fetch(config.taskPath, {
       method: 'POST',
       body: JSON.stringify({
         name: name,
@@ -39,7 +45,8 @@ export function addToDo(id, parentTaskId, name) {
     }).then(response => response.json())
     .then(json => {
       dispatch(receiveToDo(json))
-    });
+    })
+    .catch(e => console.error('addToDo failed', e));
   }
 }
 
