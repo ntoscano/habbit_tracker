@@ -1,7 +1,7 @@
 import constants from "./constants";
 
 const config = {
-  basePath: 'http://localhost:1337/task',
+  basePath: 'http://localhost:1337',
 }
 config.taskPath = config.basePath + '/task';
 
