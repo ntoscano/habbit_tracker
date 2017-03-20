@@ -34,6 +34,19 @@ export default function addToDoReducer(state = initialState, action) {
       }
       break;
 
+    case constants.POST_ENTRY:
+      // Should update state to hide loading spinner
+      return state;
+      break;
+    case constants.RECEIVE_ENTRY:
+      return {
+        todos: state.todos,
+        loggedTodos: state.loggedTodos.concat(action.entry),
+      }
+      break;
+
+
+    
     case constants.LOG_TODO:
       return {
         todos: state.todos.map((todo, index) => {
