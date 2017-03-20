@@ -49,8 +49,8 @@ class TaskDetailPage extends React.Component {
 
       return {
         id,
-        text: task.text,
-        notes: this.state.notesForTaskId[id],
+        name: task.name,
+        content: this.state.notesForTaskId[id],
       }
     });
     this.props.onCLickLogAll(entries);
@@ -137,6 +137,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     onCLickLogAll: (entries) => {
       entries.map((entry, index) => {
+        // addEntry(todoId, parentEntryId, content) {
         dispatch(logToDo(entry.id, entry.text, entry.notes));
       });
     },

@@ -74,6 +74,36 @@ export function logToDo(todoId, text, notes) {
   };
 }
 
+export function addEntry(todoId, parentEntryId, content) {
+  return function (dispatch) {
+    dispatch(postEntry())
+    return fetch(config.taskPath)
+      .then(response => response.json())
+      .then(json =>
+        dispatch(receiveEntry(json))
+      )
+      .catch(e => console.error('addEntry failed', e));
+  }
+}
+
+export function postEntry(todoId, parentEntryId, content) {
+  return {
+    type: constants.POST_ENTRY,
+    todoId,
+    parentTaskId,
+    content,
+  };
+}
+
+export function receiveEntry(entry) {
+  return {
+    type: constants.POST_ENTRY,
+    entry,
+  };
+}
+
+
+
 export function editToDo(id, text, sticky) {
   return {
     type: constants.EDIT_TODO,
