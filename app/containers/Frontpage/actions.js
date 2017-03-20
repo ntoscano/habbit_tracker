@@ -20,7 +20,7 @@ export function fetchToDos() {
 
 export function requestToDos() {
   return {
-    type: constants.FETCH_TODOS,
+    type: constants.REQUEST_TODOS,
   };
 }
 
