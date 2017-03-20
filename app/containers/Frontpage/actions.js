@@ -31,10 +31,10 @@ export function receiveToDos(todos) {
   };
 }
 
-export function addToDo(id, parentTaskId, name) {
+export function addToDo(parentTaskId, name) {
   return function (dispatch) {
 
-    dispatch(postToDo(id, parentTaskId, name))
+    dispatch(postToDo(parentTaskId, name))
 
     return fetch(config.taskPath, {
       method: 'POST',
@@ -50,10 +50,9 @@ export function addToDo(id, parentTaskId, name) {
   }
 }
 
-export function postToDo(id, parentTaskId, name) {
+export function postToDo(parentTaskId, name) {
   return {
     type: constants.POST_TODO,
-    id,
     parentTaskId,
     name,
   };

@@ -5,7 +5,6 @@ import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
 import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, logToDo, addSubTask} from './actions';
-import {v4} from 'node-uuid';
 import style from './index.scss';
 
 let nextTodoId = 0;
@@ -44,7 +43,7 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClickAdd: (text) => {
-      dispatch(addToDo(v4(), null, text));
+      dispatch(addToDo(null, text));
     },
     onClickLog: (id, text, notes) => {
       dispatch(logToDo(id, text, notes));
