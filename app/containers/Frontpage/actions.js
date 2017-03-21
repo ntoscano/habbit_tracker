@@ -63,7 +63,6 @@ export function postToDo(parentTaskId, name) {
 }
 
 export function receiveToDo(todo) {
-  console.log('receiveToDo');
   return {
     type: constants.RECEIVE_TODO,
     todo,

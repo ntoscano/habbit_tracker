@@ -111,15 +111,10 @@ TaskDetailPage.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  console.log('mapStateToProps');
-  console.log(state);
   let currentId = ownProps.location.pathname.substr(ownProps.location.pathname.lastIndexOf('/') + 1)
-  console.log('currentId '+ currentId);
   let task = state.cms.todos.filter((task) => {
     return task.id === currentId;
   })[0];
-  console.log('task');
-  console.log(task);
 
   let subTasks = state.cms.todos.filter((task) => {
     return task.parent_task_id === currentId;
