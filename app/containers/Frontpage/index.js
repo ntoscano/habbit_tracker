@@ -36,7 +36,9 @@ Frontpage.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
   return {
     todos: state.cms.todos,
-    loggedTodos: state.cms.loggedTodos,
+    loggedTodos: state.cms.loggedTodos.sort(function(a,b) {
+      return b.updatedAt - a.updatedAt;
+    }),
   }
 }
 
