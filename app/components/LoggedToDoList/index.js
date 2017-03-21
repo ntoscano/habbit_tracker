@@ -6,16 +6,11 @@ import style from './index.scss';
 class LoggedToDoList extends React.Component {
 
   render() {
-    const todos = this.props.loggedTodos.map((todo, index) => {
+    const entries = this.props.loggedTodos.map((entry, index) => {
       return (
         <li className="list-group-item" key={index}>
           <div>
-            <p>
-              Task: {todo.text}
-            </p>
-            <p>
-              Notes: {todo.notes}
-            </p>
+            <p> {entry.id}, {entry.content}, {entry.task_id}, {entry.parent_entry_id}, {entry.createdAt}, {entry.updatedAt}</p>
           </div>
         </li>
       );
@@ -23,7 +18,7 @@ class LoggedToDoList extends React.Component {
     return (
       <div>
         <div>
-          <ul className="list-group">{todos}</ul>
+          <ul className="list-group">{entries}</ul>
         </div>
       </div>
     )

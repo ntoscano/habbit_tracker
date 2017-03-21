@@ -3,13 +3,15 @@ export const RECEIVE_TODOS = "RECEIVE_TODOS";
 export const POST_TODO = "POST_TODO";
 export const RECEIVE_TODO = "RECEIVE_TODO";
 
-
 export const LOG_TODO = "LOG_TODO";
 
 export const POST_ENTRY = "POST_ENTRY";
 export const RECEIVE_ENTRY = "RECEIVE_ENTRY";
 
 export const EDIT_TODO = "EDIT_TODO";
+
+export const REQUEST_ENTRIES = "REQUEST_ENTRIES";
+export const RECEIVE_ENTRIES = "RECEIVE_ENTRIES";
 
 export default {
   REQUEST_TODOS,
@@ -24,4 +26,7 @@ export default {
   RECEIVE_ENTRY,
 
   EDIT_TODO,
+
+  REQUEST_ENTRIES,
+  RECEIVE_ENTRIES,
 };
