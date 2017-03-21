@@ -14,7 +14,7 @@ import { syncHistoryWithStore, routerReducer } from "react-router-redux";
 import routes from 'Bitmatica/routes';
 import frontpageReducer from 'Bitmatica/containers/Frontpage/reducer';
 
-import { fetchToDos } from 'Bitmatica/containers/Frontpage/actions'
+import { fetchToDos, fetchEntries } from 'Bitmatica/containers/Frontpage/actions'
 
 import {loadState, saveState} from './localStorage';
 
@@ -30,7 +30,8 @@ const store = createStore(
   ),
 );
 
-store.dispatch(fetchToDos()); // Probably a better place to initiate this
+store.dispatch(fetchToDos()); // There's probably a better place to initiate this
+store.dispatch(fetchEntries()); // There's probably a better place to initiate this
 
 store.subscribe(() => {
   saveState(store.getState());

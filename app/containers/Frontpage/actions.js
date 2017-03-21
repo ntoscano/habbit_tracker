@@ -120,7 +120,30 @@ export function receiveEntry(entry) {
   };
 }
 
+export function fetchEntries() {
+  return function (dispatch) {
+    dispatch(requestEntries())
+    return fetch(config.entryPath)
+      .then(response => response.json())
+      .then(json =>
+        dispatch(receiveEntries(json))
+      )
+      .catch(e => console.error('fetchEntries failed', e));
+  }
+}
 
+export function requestEntries() {
+  return {
+    type: constants.REQUEST_ENTRIES,
+  };
+}
+
+export function receiveEntries(entries) {
+  return {
+    type: constants.RECEIVE_ENTRIES,
+    entries,
+  };
+}
 
 export function editToDo(id, text, sticky) {
   return {
