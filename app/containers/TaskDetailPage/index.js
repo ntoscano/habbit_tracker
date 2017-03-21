@@ -39,7 +39,7 @@ class TaskDetailPage extends React.Component {
   }
 
   saveEntries () {
-    // Should prob calculate parent_entry_id uuid in action
+    // Should prob calculate uuids in action instead of here
     let parent_entry_id = this.state.taskIdsToLog[this.props.task.id] ? v4() : undefined;
     let entries = Object.keys(this.state.taskIdsToLog).filter((key, index) => {
       return this.state.taskIdsToLog[key];
