@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { browserHistory } from 'react-router'
 import TaskDetails from 'Bitmatica/components/TaskDetails';
 import NavBar from 'Bitmatica/components/NavBar';
-import {addToDo, logToDo, addSubTask} from 'Bitmatica/containers/Frontpage/actions';
+import {addToDo, logToDo, addSubTask, addEntry} from 'Bitmatica/containers/Frontpage/actions';
 import {v4} from 'node-uuid';
 
 
@@ -39,6 +39,8 @@ class TaskDetailPage extends React.Component {
   }
 
   saveEntries () {
+    // Should prob calculate parent_entry_id uuid in action
+    let parent_entry_id = this.state.taskIdsToLog[this.props.task.id] ? v4() : undefined;
     let entries = Object.keys(this.state.taskIdsToLog).filter((key, index) => {
       return this.state.taskIdsToLog[key];
     }).map((taskId, index) => {
@@ -48,8 +50,9 @@ class TaskDetailPage extends React.Component {
       })[0];
 
       return {
+        id: task.id === this.props.task.id ? parent_entry_id : v4(),
         taskId,
-        isParent: this.props.task.id === taskId,
+        parent_entry_id: task.id === this.props.task.id ? undefined : parent_entry_id,
         content: this.state.notesForTaskId[taskId],
       }
     });
@@ -135,12 +138,10 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(logToDo(id, text, notes));
     },
     onCLickLogAll: (entries) => {
-      dispatch(addEntries(entries));
-      // entries.map((entry, index) => {
-
-        // dispatch(addEntry(todoId, parentEntryId, content) {
-        // dispatch(logToDo(entry.id, entry.text, entry.notes));
-      // });
+      // dispatch(addEntries(entries));
+      entries.map((entry, index) => {
+        dispatch(addEntry(entry.id, entry.taskId, entry.parent_entry_id, entry.content))
+      });
     },
   }
 }

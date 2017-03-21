@@ -84,13 +84,13 @@ export function addEntries(entries) {
   }
 }
 
-export function addEntry(todoId, parentEntryId, content) {
+export function addEntry(id, todoId, parentEntryId, content) {
   return function (dispatch) {
-    dispatch(postEntry())
+    dispatch(postEntry(todoId, parentEntryId, content))
     return fetch(config.entryPath, {
       method: 'POST',
       body: JSON.stringify({
-        id: v4(),
+        id: id,
         content: content,
         task_id: todoId,
         parent_entry_id: parentEntryId,
@@ -108,7 +108,7 @@ export function postEntry(todoId, parentEntryId, content) {
   return {
     type: constants.POST_ENTRY,
     todoId,
-    parentTaskId,
+    parentEntryId,
     content,
   };
 }
