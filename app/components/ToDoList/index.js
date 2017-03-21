@@ -15,7 +15,7 @@ class ToDoList extends React.Component {
       );
     });
     return (
-        <div className="card-columns">
+        <div>
           {todos}
           <AddToDo className={style.page} onClick={this.props.onClickAddTask} />
         </div>

@@ -3,6 +3,8 @@ import cx from 'classnames';
 
 import style from './index.scss';
 
+import moment from 'moment';
+
 class LoggedToDoList extends React.Component {
 
   render() {
@@ -10,7 +12,7 @@ class LoggedToDoList extends React.Component {
       return (
         <li className="list-group-item" key={index}>
           <div>
-            <p> {entry.id}, {entry.content}, {entry.task_id}, {entry.parent_entry_id}, {entry.createdAt}, {entry.updatedAt}</p>
+            <p> {entry.content} {moment(entry.updatedAt).fromNow()}</p>
           </div>
         </li>
       );

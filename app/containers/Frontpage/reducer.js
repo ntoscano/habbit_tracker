@@ -52,7 +52,6 @@ export default function addToDoReducer(state = initialState, action) {
 
     case constants.RECEIVE_ENTRIES:
       // Should update state to hide loading spinner
-      console.log(action.entries);
       return {
         todos: state.todos,
         loggedTodos: action.entries,
