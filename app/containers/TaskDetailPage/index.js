@@ -41,16 +41,16 @@ class TaskDetailPage extends React.Component {
   saveEntries () {
     let entries = Object.keys(this.state.taskIdsToLog).filter((key, index) => {
       return this.state.taskIdsToLog[key];
-    }).map((id, index) => {
+    }).map((taskId, index) => {
 
-      let task = this.props.task.id === id ? this.props.task : this.props.subTasks.filter((task) => {
-        return task.id === id
+      let task = this.props.task.id === taskId ? this.props.task : this.props.subTasks.filter((task) => {
+        return task.id === taskId
       })[0];
 
       return {
-        id,
-        name: task.name,
-        content: this.state.notesForTaskId[id],
+        taskId,
+        isParent: this.props.task.id === taskId,
+        content: this.state.notesForTaskId[taskId],
       }
     });
     this.props.onCLickLogAll(entries);
@@ -111,14 +111,18 @@ TaskDetailPage.defaultProps = {
 }
 
 const mapStateToProps = (state, ownProps) => {
+  console.log('mapStateToProps');
+  console.log(state);
   let currentId = ownProps.location.pathname.substr(ownProps.location.pathname.lastIndexOf('/') + 1)
-
+  console.log('currentId '+ currentId);
   let task = state.cms.todos.filter((task) => {
-    return task.id == currentId;
+    return task.id === currentId;
   })[0];
+  console.log('task');
+  console.log(task);
 
   let subTasks = state.cms.todos.filter((task) => {
-    return task.parentTaskId === currentId;
+    return task.parent_task_id === currentId;
   });
 
   return {
@@ -130,16 +134,18 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClickAddTask: (parentTaskId, name) => {
-      dispatch(addToDo(v4(), parentTaskId, name));
+      dispatch(addToDo(parentTaskId, name));
     },
     onClickLog: (id, text, notes) => {
       dispatch(logToDo(id, text, notes));
     },
     onCLickLogAll: (entries) => {
-      entries.map((entry, index) => {
-        // addEntry(todoId, parentEntryId, content) {
-        dispatch(logToDo(entry.id, entry.text, entry.notes));
-      });
+      dispatch(addEntries(entries));
+      // entries.map((entry, index) => {
+
+        // dispatch(addEntry(todoId, parentEntryId, content) {
+        // dispatch(logToDo(entry.id, entry.text, entry.notes));
+      // });
     },
   }
 }

@@ -1,9 +1,11 @@
 import constants from "./constants";
+import {v4} from 'node-uuid';
 
 const config = {
   basePath: 'http://localhost:1337',
 }
 config.taskPath = config.basePath + '/task';
+config.entryPath = config.basePath + '/entry';
 
 // http://redux.js.org/docs/advanced/AsyncActions.html
 export function fetchToDos() {
@@ -39,8 +41,10 @@ export function addToDo(parentTaskId, name) {
     return fetch(config.taskPath, {
       method: 'POST',
       body: JSON.stringify({
+        id: v4(),
         name: name,
         sticky: parentTaskId ? false: true,
+        parent_task_id: parentTaskId ? parentTaskId : undefined,
       }),
     }).then(response => response.json())
     .then(json => {
@@ -59,6 +63,7 @@ export function postToDo(parentTaskId, name) {
 }
 
 export function receiveToDo(todo) {
+  console.log('receiveToDo');
   return {
     type: constants.RECEIVE_TODO,
     todo,
@@ -74,15 +79,29 @@ export function logToDo(todoId, text, notes) {
   };
 }
 
+export function addEntries(entries) {
+  return function (dispatch) {
+
+  }
+}
+
 export function addEntry(todoId, parentEntryId, content) {
   return function (dispatch) {
     dispatch(postEntry())
-    return fetch(config.taskPath)
-      .then(response => response.json())
-      .then(json =>
-        dispatch(receiveEntry(json))
-      )
-      .catch(e => console.error('addEntry failed', e));
+    return fetch(config.entryPath, {
+      method: 'POST',
+      body: JSON.stringify({
+        id: v4(),
+        content: content,
+        task_id: todoId,
+        parent_entry_id: parentEntryId,
+        check: true,
+      }),
+    }).then(response => response.json())
+    .then(json => {
+      dispatch(receiveEntry(json))
+    })
+    .catch(e => console.error('addEntry failed', e));
   }
 }
 
