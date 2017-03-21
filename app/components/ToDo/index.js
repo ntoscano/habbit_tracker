@@ -9,13 +9,9 @@ class ToDo extends React.Component {
     return (
       <div key>
         <Link to={"/tasks/" + this.props.todo.id}>
-        <div className="card card-inverse card-secondary mb-3 text-center">
-          <div className="card-block">
-            <blockquote className="card-blockquote">
-              <h4 className="text-muted">{this.props.todo.name}</h4>
-            </blockquote>
-          </div>
-        </div>
+          <button className="btn btn-secondary">
+            <h4 className="text-muted">{this.props.todo.name}</h4>
+          </button>
         </Link>
       </div>
     )

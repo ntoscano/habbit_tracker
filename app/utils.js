@@ -8,9 +8,6 @@ export const timeDifference = (current, previous) => {
 
     var elapsed = current - previous;
 
-    console.log('current ' + current);
-    console.log('previous ' + previous);
-
     if (Math.round(elapsed/1000) <= msPerMinute) {
         return 'just now';
 
