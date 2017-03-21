@@ -46,7 +46,7 @@ export default function addToDoReducer(state = initialState, action) {
       break;
 
 
-    
+
     case constants.LOG_TODO:
       return {
         todos: state.todos.map((todo, index) => {
