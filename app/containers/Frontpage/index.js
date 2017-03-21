@@ -4,11 +4,21 @@ import ToDoList from 'Bitmatica/components/ToDoList';
 import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
 import NavBar from 'Bitmatica/components/NavBar';
-import {addToDo, logToDo, addSubTask} from './actions';
+import {addToDo, logToDo, addSubTask, fetchEntries} from './actions';
 import style from './index.scss';
 
-let nextTodoId = 0;
+let timerId;
+
 class Frontpage extends React.Component {
+
+  componentDidMount () {
+    this.props.fetchEntries();
+    timerId = setInterval(this.props.fetchEntries, 1000);
+  }
+  componentWillUnmount () {
+    clearInterval(timerId);
+  }
+
   render() {
     return (
       <div>
@@ -26,6 +36,7 @@ class Frontpage extends React.Component {
 Frontpage.propTypes = {
   todos: React.PropTypes.array,
   loggedTodos: React.PropTypes.array,
+  fetchEntries: React.PropTypes.func,
 }
 
 Frontpage.defaultProps = {
@@ -50,6 +61,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onClickLog: (id, text, notes) => {
       dispatch(logToDo(id, text, notes));
     },
+    fetchEntries: () => {
+      dispatch(fetchEntries());
+    }
   }
 }
 
