@@ -10,7 +10,7 @@ class TaskDetails extends React.Component {
   }
 
   componentDidMount () {
-    if (!this.props.task.parentTaskId) {
+    if (!this.props.task.parent_task_id) {
       this.props.onToggleEntry(this.props.task.id, false);
     }
   }
