@@ -7,13 +7,9 @@ class ToDo extends React.Component {
 
   render() {
     return (
-      <div key>
-        <Link to={"/tasks/" + this.props.todo.id}>
-          <button className="btn btn-secondary">
-            <h4 className="text-muted">{this.props.todo.name}</h4>
-          </button>
-        </Link>
-      </div>
+      <Link to={"/tasks/" + this.props.todo.id} className="btn btn-secondary">
+        <h4 className="text-muted">{this.props.todo.name}</h4>
+      </Link>
     )
   }
 }

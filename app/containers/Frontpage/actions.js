@@ -115,7 +115,7 @@ export function postEntry(todoId, parentEntryId, content) {
 
 export function receiveEntry(entry) {
   return {
-    type: constants.POST_ENTRY,
+    type: constants.RECEIVE_ENTRY,
     entry,
   };
 }
@@ -142,6 +142,41 @@ export function receiveEntries(entries) {
   return {
     type: constants.RECEIVE_ENTRIES,
     entries,
+  };
+}
+
+export function editEntry(entryId, content, check) {
+  return function (dispatch) {
+
+    dispatch(putEntry(entryId, content, check));
+
+    return fetch(config.entryPath + '/' + entryId, {
+      method: 'PUT',
+      body: JSON.stringify({
+        content: content,
+        check: check,
+      }),
+    }).then(response => response.json())
+    .then(json => {
+      dispatch(receiveEditedEntry(json))
+    })
+    .catch(e => console.error('editEntry failed', e));
+  }
+}
+
+export function putEntry(entryId, content, check) {
+  return {
+    type: constants.PUT_ENTRY,
+    entryId,
+    content,
+    check,
+  };
+}
+
+export function receiveEditedEntry(entry) {
+  return {
+    type: constants.RECEIVE_EDITED_ENTRY,
+    entry,
   };
 }
 

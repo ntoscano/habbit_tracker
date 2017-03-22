@@ -9,7 +9,7 @@ import {addToDo, logToDo, addSubTask, addEntry} from 'Bitmatica/containers/Front
 import {v4} from 'node-uuid';
 
 
-class TaskDetailPage extends React.Component {
+class EntryEditPage extends React.Component {
 
   constructor() {
     super();
@@ -95,27 +95,41 @@ class TaskDetailPage extends React.Component {
   }
 }
 
-TaskDetailPage.propTypes = {
+EntryEditPage.propTypes = {
+  entry: React.PropTypes.object,
+  subEntries: React.PropTypes.array,
   task: React.PropTypes.object,
   subTasks: React.PropTypes.array,
 }
 
-TaskDetailPage.defaultProps = {
+EntryEditPage.defaultProps = {
+  entry: {},
+  subEntries: [],
   task: {},
   subTasks: [],
 }
 
 const mapStateToProps = (state, ownProps) => {
-  let currentId = ownProps.location.pathname.substr(ownProps.location.pathname.lastIndexOf('/') + 1)
-  let task = state.cms.todos.filter((task) => {
-    return task.id === currentId;
+  let currentEntryId = ownProps.location.pathname.substr(ownProps.location.pathname.lastIndexOf('/') + 1);
+  let entry = state.cms.loggedTodos.filter((entry) => {
+    return entry.id === currentEntryId;
   })[0];
 
-  let subTasks = state.cms.todos.filter((task) => {
-    return task.parent_task_id === currentId;
+  let subEntries = state.cms.loggedTodos.filter((ent) => {
+    return ent.parent_entry_id === entry.id;
+  });
+
+  let task = state.cms.todos.filter((task) => {
+    return task.id === entry.task_id;
+  })[0];
+
+  let subTasks = state.cms.todos.filter((tsk) => {
+    return tsk.parent_task_id === task.id;
   });
 
   return {
+    entry,
+    subEntries,
     task,
     subTasks,
   }
@@ -134,4 +148,4 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(TaskDetailPage);
+export default connect(mapStateToProps, mapDispatchToProps)(EntryEditPage);
