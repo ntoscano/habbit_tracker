@@ -40,7 +40,8 @@ class Frontpage extends React.Component {
 
   render() {
     let entryGroups = this.entryGroups(this.props.loggedTodos).map((entries, index) => {
-      return <EntryGroup entries={entries} onClick={this.props.editEntry} />;
+
+      return <EntryGroup entries={entries} tasks={this.props.todos} onClick={this.props.editEntry} />;
     });
     return (
       <div>

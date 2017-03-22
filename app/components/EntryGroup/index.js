@@ -10,17 +10,22 @@ import { Link } from 'react-router-dom';
 
 class EntryGroup extends React.Component {
 
+  taskForId(id) {
+    return this.props.tasks.filter((tsk) => {
+      return tsk.id === id;
+    })[0];
+  }
+
   render() {
     const entries = this.props.entries.sort(function(e1,e2) {
       return e1.updatedAt - e2.updatedAt;
     }).map((entry, index) => {
       return (
-        <Link to={"/entries/" + entry.id}>
-          <div className="list-group-item" key={entry.id}>
-            <div className="d-flex w-100 justify-content-between">
-              <h5 className="text-muted">{entry.parent_entry_id ? 'SUB ENTRY: ' : ''} {entry.content}</h5>
-              <small>{moment(entry.updatedAt).fromNow()}</small>
-            </div>
+        <Link to={"/entries/" + entry.id} className="list-group-item" key={entry.id}>
+          <div className="d-flex w-100 justify-content-between">
+            <h5 className="text-muted">{this.taskForId(entry.task_id).name}</h5>
+            <h5 className="text-muted">{entry.content} </h5>
+            <h5 className="text-muted">{moment(entry.updatedAt).fromNow()}</h5>
           </div>
         </Link>
       );
@@ -33,11 +38,13 @@ class EntryGroup extends React.Component {
 
 EntryGroup.propTypes = {
   entries: React.PropTypes.array,
+  tasks: React.PropTypes.array,
   onClick: React.PropTypes.func,
 };
 
 EntryGroup.defaultProps = {
   entries: [],
+  tasks: [],
   onClick: undefined,
 }
 
