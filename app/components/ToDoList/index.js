@@ -17,6 +17,7 @@ class ToDoList extends React.Component {
     return (
         <div>
           {todos}
+          <p></p>
           <AddToDo className={style.page} onClick={this.props.onClickAddTask} />
         </div>
     )

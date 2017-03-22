@@ -3,8 +3,9 @@ import {connect, dispatch} from 'react-redux';
 import ToDoList from 'Bitmatica/components/ToDoList';
 import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
+import EntryGroup from 'Bitmatica/components/EntryGroup';
 import NavBar from 'Bitmatica/components/NavBar';
-import {addToDo, logToDo, addSubTask, fetchEntries} from './actions';
+import {addToDo, logToDo, addSubTask, fetchEntries, editEntry} from './actions';
 import style from './index.scss';
 
 let timerId;
@@ -19,15 +20,36 @@ class Frontpage extends React.Component {
     clearInterval(timerId);
   }
 
+  entryGroups(entries) {
+    let entryGroups = [];
+    entries.sort(function(e1,e2) {
+      return e2.updatedAt - e1.updatedAt;
+    }).map((entry, index) => {
+      if (entry.parent_entry_id === '') {
+        entryGroups = entryGroups.concat([entries.filter((ent) => {
+          return ent.parent_entry_id === entry.id || ent.id === entry.id;
+        })]);
+      }
+    });
+    return entryGroups;
+  }
+
+  parentTaskIdForEntryGroup(entryGroup) {
+    let parentTaskId;
+  }
+
   render() {
+    let entryGroups = this.entryGroups(this.props.loggedTodos).map((entries, index) => {
+      return <EntryGroup entries={entries} onClick={this.props.editEntry} />;
+    });
     return (
       <div>
         <NavBar backButton={false} />
         <p></p>
-        <div>
-          <ToDoList todos={this.props.todos} onClickAddTask={this.props.onClickAdd}/>
-          <LoggedToDoList loggedTodos={this.props.loggedTodos} />
-        </div>
+        <ToDoList todos={this.props.todos} onClickAddTask={this.props.onClickAdd}/>
+        <p></p>
+        {entryGroups}
+        <p></p>
       </div>
     )
   }
@@ -63,6 +85,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     fetchEntries: () => {
       dispatch(fetchEntries());
+    },
+    editEntry: (entryId, content, check) => {
+      dispatch(editEntry(entryId, content, check))
     }
   }
 }
