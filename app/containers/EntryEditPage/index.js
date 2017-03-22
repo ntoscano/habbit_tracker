@@ -19,13 +19,22 @@ class EntryEditPage extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this.props.subEntries.concat(this.props.entry)
+    .map((entry, index) => {
+      if (entry.check) {
+        this.onToggleEntry(entry.task_id, false)
+      };
+    });
+  }
+
   onToggleEntry (id, currentValue) {
     this.setState({
       taskIdsToLog: Object.assign({}, this.state.taskIdsToLog,{
         [id]: !currentValue,
       }),
       notesForTaskId: this.state.notesForTaskId,
-    })
+    });
   }
 
   onChangeNotes (id, notes) {
@@ -60,7 +69,6 @@ class EntryEditPage extends React.Component {
 
   render() {
     const taskDetails = [this.props.task].concat(this.props.subTasks).map((task, index) => {
-      let notesInput;
       return (
         <TaskDetails task={task} showNotesField={this.state.taskIdsToLog[task.id]} key={task.id} onToggleEntry={(id, currentValue) => this.onToggleEntry(id, currentValue)} onChangeNotes={(id, notes) => this.onChangeNotes(id, notes)} />
       );
