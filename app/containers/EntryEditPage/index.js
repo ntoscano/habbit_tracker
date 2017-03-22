@@ -20,12 +20,7 @@ class EntryEditPage extends React.Component {
   }
 
   componentDidMount() {
-    this.props.subEntries.concat(this.props.entry)
-    .map((entry, index) => {
-      if (entry.check) {
-        this.onToggleEntry(entry.task_id, false)
-      };
-    });
+    
   }
 
   onToggleEntry (id, currentValue) {
