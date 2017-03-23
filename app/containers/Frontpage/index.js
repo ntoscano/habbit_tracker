@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect, dispatch} from 'react-redux';
+import { Link } from 'react-router-dom';
 import ToDoList from 'Bitmatica/components/ToDoList';
 import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
@@ -7,6 +8,8 @@ import EntryGroup from 'Bitmatica/components/EntryGroup';
 import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, logToDo, addSubTask, fetchEntries, editEntry} from './actions';
 import style from './index.scss';
+import moment from 'moment';
+
 
 let timerId;
 
@@ -39,9 +42,19 @@ class Frontpage extends React.Component {
   }
 
   render() {
-    let entryGroups = this.entryGroups(this.props.loggedTodos).map((entries, index) => {
-
-      return <EntryGroup entries={entries} tasks={this.props.todos} onClick={this.props.editEntry} />;
+    let entries = this.props.loggedTodos.filter((entry, index) => {
+      return entry.check;
+    }).map((entry, index) => {
+      let task = this.props.todos.filter((task, index) => {
+        return task.id === entry.task_id;
+      })[0];
+      return (
+          <tr>
+            <td><Link className="text-muted" to={"/entries/" + entry.id} key={entry.id}>{entry.parent_entry_id ? '....' : ''}{task.name}</Link></td>
+            <td><Link className="text-muted" to={"/entries/" + entry.id} key={entry.id}>{entry.content}</Link></td>
+            <td><Link className="text-muted" to={"/entries/" + entry.id} key={entry.id}>{moment(entry.updatedAt).fromNow()}</Link></td>
+          </tr>
+        );
     });
     return (
       <div>
@@ -49,7 +62,15 @@ class Frontpage extends React.Component {
         <p></p>
         <ToDoList todos={this.props.todos} onClickAddTask={this.props.onClickAdd}/>
         <p></p>
-        <div className="list-group">{entryGroups}</div>
+        <div className="list-group">
+          <div className="list-group-item">
+            <table className="table table-hover">
+              <tbody>
+                {entries}
+              </tbody>
+            </table>
+          </div>
+        </div>
         <p></p>
       </div>
     )

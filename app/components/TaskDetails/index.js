@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 class TaskDetails extends React.Component {
 
   onClickCheckbox (newValue) {
-    this.props.onClickCheckbox(this.props.task.id, newValue);
+    this.props.onClickCheckbox(this.props.task.id, !this.props.checked);
   }
 
   onChangeNotes (newValue) {
@@ -22,7 +22,7 @@ class TaskDetails extends React.Component {
           <span className="input-group-addon">
             <input type="checkbox" checked={this.props.checked} onClick={(event) => {this.onClickCheckbox(event.target.checked)}} aria-label="Checkbox for following text input" />
           </span>
-          <input className="form-control" placeholder="Notes..." value={this.props.notes} onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}} onClick={(event) => {this.onClickCheckbox(true)}} />
+          <input className="form-control" placeholder="Notes..." value={this.props.notes} onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}}/>
         </div>
       </div>
     )};
