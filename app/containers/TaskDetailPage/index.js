@@ -19,10 +19,28 @@ class TaskDetailPage extends React.Component {
     }
   }
 
+  componentDidMount () {
+    this.setState({
+      taskIdsToLog: Object.assign({}, this.state.taskIdsToLog,{
+        [this.props.task.id]: true,
+      }),
+      notesForTaskId: this.state.notesForTaskId,
+    })
+  }
+
   onToggleEntry (id, currentValue) {
     this.setState({
       taskIdsToLog: Object.assign({}, this.state.taskIdsToLog,{
         [id]: !currentValue,
+      }),
+      notesForTaskId: this.state.notesForTaskId,
+    })
+  }
+
+  onClickCheckbox(id, newValue) {
+    this.setState({
+      taskIdsToLog: Object.assign({}, this.state.taskIdsToLog,{
+        [id]: newValue,
       }),
       notesForTaskId: this.state.notesForTaskId,
     })
@@ -61,7 +79,14 @@ class TaskDetailPage extends React.Component {
   render() {
     const taskDetails = [this.props.task].concat(this.props.subTasks).map((task, index) => {
       return (
-        <TaskDetails task={task} showNotesField={this.state.taskIdsToLog[task.id]} onToggleEntry={(id, currentValue) => this.onToggleEntry(id, currentValue)} onChangeNotes={(id, notes) => this.onChangeNotes(id, notes)} key={task.id} />
+        <TaskDetails
+          task={task}
+          notes={this.state.notesForTaskId[task.id]}
+          checked={this.state.taskIdsToLog[task.id]}
+          onClickCheckbox={(id, newValue) => this.onClickCheckbox(id, newValue)}
+          onChangeNotes={(id, notes) => this.onChangeNotes(id, notes)}
+          key={task.id}
+        />
       );
     });
     let input;

@@ -49,7 +49,7 @@ class Frontpage extends React.Component {
         <p></p>
         <ToDoList todos={this.props.todos} onClickAddTask={this.props.onClickAdd}/>
         <p></p>
-        {entryGroups}
+        <div className="list-group">{entryGroups}</div>
         <p></p>
       </div>
     )

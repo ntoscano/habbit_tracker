@@ -31,7 +31,9 @@ class EntryGroup extends React.Component {
       );
     });
     return (
-      <div className="list-group">{entries}</div>
+      <div>
+        {entries}
+      </div>
     )
   }
 }
