@@ -28,15 +28,6 @@ class TaskDetailPage extends React.Component {
     })
   }
 
-  onToggleEntry (id, currentValue) {
-    this.setState({
-      taskIdsToLog: Object.assign({}, this.state.taskIdsToLog,{
-        [id]: !currentValue,
-      }),
-      notesForTaskId: this.state.notesForTaskId,
-    })
-  }
-
   onClickCheckbox(id, newValue) {
     this.setState({
       taskIdsToLog: Object.assign({}, this.state.taskIdsToLog,{

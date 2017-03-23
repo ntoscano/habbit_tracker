@@ -19,17 +19,26 @@ class EntryEditPage extends React.Component {
     }
   }
 
-  componentDidMount() {
-
+  componentDidMount () {
+    let taskIds = {};
+    let notes = {};
+    this.setState({
+      taskIdsToLog: Object.assign(taskIds, this.state.taskIdsToLog, this.props.subEntries.concat(this.props.entry).map((entry, index) => {
+        return taskIds[entry.task_id] = true;
+      })),
+      notesForTaskId: Object.assign(notes, this.state.notesForTaskId, this.props.subEntries.concat(this.props.entry).map((entry, index) => {
+        return notes[entry.task_id] = entry.content;
+      })),
+    })
   }
 
-  onToggleEntry (id, currentValue) {
+  onClickCheckbox(id, newValue) {
     this.setState({
       taskIdsToLog: Object.assign({}, this.state.taskIdsToLog,{
-        [id]: !currentValue,
+        [id]: newValue,
       }),
       notesForTaskId: this.state.notesForTaskId,
-    });
+    })
   }
 
   onChangeNotes (id, notes) {
@@ -42,6 +51,7 @@ class EntryEditPage extends React.Component {
   }
 
   saveEntries () {
+
     // Should prob calculate uuids in action instead of here
     let parent_entry_id = this.state.taskIdsToLog[this.props.task.id] ? v4() : undefined;
     let entries = Object.keys(this.state.taskIdsToLog).filter((key, index) => {
@@ -65,7 +75,14 @@ class EntryEditPage extends React.Component {
   render() {
     const taskDetails = [this.props.task].concat(this.props.subTasks).map((task, index) => {
       return (
-        <TaskDetails task={task} showNotesField={this.state.taskIdsToLog[task.id]} onToggleEntry={(id, currentValue) => this.onToggleEntry(id, currentValue)} onChangeNotes={(id, notes) => this.onChangeNotes(id, notes)} key={task.id} />
+        <TaskDetails
+          task={task}
+          notes={this.state.notesForTaskId[task.id]}
+          checked={this.state.taskIdsToLog[task.id]}
+          onClickCheckbox={(id, newValue) => this.onClickCheckbox(id, newValue)}
+          onChangeNotes={(id, notes) => this.onChangeNotes(id, notes)}
+          key={task.id}
+        />
       );
     });
     let input;
