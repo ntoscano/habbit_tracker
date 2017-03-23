@@ -22,6 +22,7 @@ class EntryEditPage extends React.Component {
   componentDidMount () {
     let taskIds = {};
     let notes = {};
+
     this.setState({
       taskIdsToLog: Object.assign(taskIds, this.state.taskIdsToLog, this.props.subEntries.concat(this.props.entry).map((entry, index) => {
         taskIds[entry.task_id] = entry.check;
@@ -52,11 +53,13 @@ class EntryEditPage extends React.Component {
 
   saveEntries () {
 
-    // let parentEntries = this.entries().filter((entry, index) => {
-    //   let task = this.taskForId(entry.task_id);
-    //   return task && !task.parent_task_id;
-    // });
-    // let parentEntryId = parentEntries.length ? parentEntries[0].id : undefined;
+    let parentEntries = this.entries().filter((entry, index) => {
+      let task = this.taskForId(entry.task_id);
+      console.log(task);
+      return task && !task.parent_task_id;
+    });
+    let parentEntry = parentEntries.length ? parentEntries[0] : undefined;
+    console.log(parentEntry);
 
     let entriesToEdit = this.entries().map((entry, index) => {
       this.props.onClickEditEntry({
@@ -66,13 +69,32 @@ class EntryEditPage extends React.Component {
       });
     });
 
-    // let taskIdsToAdd = Object.keys(this.state.taskIdsToLog).filter((taskId, index) => {
-    //   return this.state.taskIdsToLog[taskId];
-    // })
+    let taskIdsToAdd = Object.keys(this.state.taskIdsToLog)
+    .filter((taskId, index) => {
+      return this.state.taskIdsToLog[taskId];
+    })
+    .filter((taskId, index) => {
+      return !this.entryForTaskId(taskId);
+    })
+    .map((taskId, index) => {
+      this.props.onClickAddEntry({
+        id: v4(),
+        task_id: taskId,
+        parent_entry_id: parentEntry && taskId !== parentEntry.task_id ? parentEntry.id : '',
+        content: this.state.notesForTaskId[taskId],
+      })
+    });
   }
 
   entries() {
     return this.props.subEntries.concat(this.props.entry);
+  }
+
+  entryForTaskId(id) {
+    let entries = this.entries().filter((entry, index) => {
+      return entry.task_id === id;
+    });
+    return entries.length > 0 ? entries[0] : undefined;
   }
 
   tasks() {
@@ -80,9 +102,10 @@ class EntryEditPage extends React.Component {
   }
 
   taskForId(id) {
-    this.tasks().filter((task, index) => {
+    let tasks = this.tasks().filter((task, index) => {
       return task.id === id;
-    })[0];
+    });
+    return tasks.length > 0 ? tasks[0] : undefined;
   }
 
   render() {
@@ -166,10 +189,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onClickEditEntry: (entry) => {
       dispatch(editEntry(entry.id, entry.content, entry.check, entry.parent_entry_id));
     },
-    onCLickLogAll: (entries) => {
-      entries.map((entry, index) => {
-        dispatch(addEntry(entry.id, entry.taskId, entry.parent_entry_id, entry.content))
-      });
+    onClickAddEntry: (entry) => {
+      dispatch(addEntry(entry.id, entry.task_id, entry.parent_entry_id, entry.content));
     },
   }
 }
