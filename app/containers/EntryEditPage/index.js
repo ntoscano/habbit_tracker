@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { browserHistory } from 'react-router'
 import TaskDetails from 'Bitmatica/components/TaskDetails';
 import NavBar from 'Bitmatica/components/NavBar';
-import {addToDo, logToDo, addSubTask, addEntry} from 'Bitmatica/containers/Frontpage/actions';
+import {addToDo, logToDo, addSubTask, addEntry, editEntry} from 'Bitmatica/containers/Frontpage/actions';
 import {v4} from 'node-uuid';
 
 
@@ -24,10 +24,10 @@ class EntryEditPage extends React.Component {
     let notes = {};
     this.setState({
       taskIdsToLog: Object.assign(taskIds, this.state.taskIdsToLog, this.props.subEntries.concat(this.props.entry).map((entry, index) => {
-        return taskIds[entry.task_id] = true;
+        taskIds[entry.task_id] = entry.check;
       })),
       notesForTaskId: Object.assign(notes, this.state.notesForTaskId, this.props.subEntries.concat(this.props.entry).map((entry, index) => {
-        return notes[entry.task_id] = entry.content;
+        notes[entry.task_id] = entry.content;
       })),
     })
   }
@@ -52,24 +52,37 @@ class EntryEditPage extends React.Component {
 
   saveEntries () {
 
-    // Should prob calculate uuids in action instead of here
-    let parent_entry_id = this.state.taskIdsToLog[this.props.task.id] ? v4() : undefined;
-    let entries = Object.keys(this.state.taskIdsToLog).filter((key, index) => {
-      return this.state.taskIdsToLog[key];
-    }).map((taskId, index) => {
+    // let parentEntries = this.entries().filter((entry, index) => {
+    //   let task = this.taskForId(entry.task_id);
+    //   return task && !task.parent_task_id;
+    // });
+    // let parentEntryId = parentEntries.length ? parentEntries[0].id : undefined;
 
-      let task = this.props.task.id === taskId ? this.props.task : this.props.subTasks.filter((task) => {
-        return task.id === taskId
-      })[0];
-
-      return {
-        id: task.id === this.props.task.id ? parent_entry_id : v4(),
-        taskId,
-        parent_entry_id: task.id === this.props.task.id ? undefined : parent_entry_id,
-        content: this.state.notesForTaskId[taskId],
-      }
+    let entriesToEdit = this.entries().map((entry, index) => {
+      this.props.onClickEditEntry({
+        id: entry.id,
+        content: this.state.notesForTaskId[entry.task_id],
+        check: this.state.taskIdsToLog[entry.task_id] ? true : false,
+      });
     });
-    this.props.onCLickLogAll(entries);
+
+    // let taskIdsToAdd = Object.keys(this.state.taskIdsToLog).filter((taskId, index) => {
+    //   return this.state.taskIdsToLog[taskId];
+    // })
+  }
+
+  entries() {
+    return this.props.subEntries.concat(this.props.entry);
+  }
+
+  tasks() {
+    return this.props.subTasks.concat(this.props.task);
+  }
+
+  taskForId(id) {
+    this.tasks().filter((task, index) => {
+      return task.id === id;
+    })[0];
   }
 
   render() {
@@ -94,16 +107,6 @@ class EntryEditPage extends React.Component {
           <div className="card">
             <div className="list-group list-group-flush">
               {taskDetails}
-              <div className="list-group-item list-group-item-action justify-content-between">
-                <div className="input-group">
-                  <input className="form-control" placeholder="Add subtask..." ref={node => {
-                    input = node;
-                  }} />
-                  <span className="input-group-btn">
-                    <button className="btn btn-secondary" type="button" onClick={() => {if (input.value) {this.props.onClickAddTask(this.props.task.id, input.value); input.value='';}}}>Add</button>
-                  </span>
-                </div>
-              </div>
               <div className="text-right">
                 <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
               </div>
@@ -159,6 +162,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClickAddTask: (parentTaskId, name) => {
       dispatch(addToDo(parentTaskId, name));
+    },
+    onClickEditEntry: (entry) => {
+      dispatch(editEntry(entry.id, entry.content, entry.check, entry.parent_entry_id));
     },
     onCLickLogAll: (entries) => {
       entries.map((entry, index) => {
