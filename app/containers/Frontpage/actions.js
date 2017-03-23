@@ -151,7 +151,7 @@ export function editEntry(entryId, content, check) {
     dispatch(putEntry(entryId, content, check));
 
     return fetch(config.entryPath + '/' + entryId, {
-      method: 'PUT',
+      method: 'PATCH',
       body: JSON.stringify({
         content: content,
         check: check,
