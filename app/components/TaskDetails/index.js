@@ -5,14 +5,12 @@ import { Link } from 'react-router-dom';
 
 class TaskDetails extends React.Component {
 
-  toggleNotesField () {
-    this.props.onToggleEntry(this.props.task.id, this.props.showNotesField);
+  onClickCheckbox (newValue) {
+    this.props.onClickCheckbox(this.props.task.id, newValue);
   }
 
-  componentDidMount () {
-    if (!this.props.task.parent_task_id) {
-      this.props.onToggleEntry(this.props.task.id, false);
-    }
+  onChangeNotes (newValue) {
+    this.props.onChangeNotes(id, newValue)
   }
 
   render() {
@@ -21,10 +19,10 @@ class TaskDetails extends React.Component {
       <div className="list-group-item list-group-item-action justify-content-between  " key={this.props.task.id}>
         <Link to={"/tasks/" + this.props.task.id + "/edit"} className="text-muted">{this.props.task.name}  <i className="fa fa-pencil"></i></Link>
         <div className="input-group">
-          <span className="input-group-btn">
-            <button type="button" className="btn btn-secondary" onClick={(event) => {this.toggleNotesField()}}><i className={this.props.showNotesField ? "fa fa-check-square-o fa-3" : "fa fa-square-o fa-3"}></i></button>
+          <span className="input-group-addon">
+            <input type="checkbox" checked={this.props.checked} onClick={(event) => {this.onClickCheckbox(event.target.checked)}} aria-label="Checkbox for following text input" />
           </span>
-          <input className="form-control" placeholder="Notes..." defaultValue={this.props.initialNotes} onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}} />
+          <input className="form-control" placeholder="Notes..." value={this.props.notes} onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}} onClick={(event) => {this.onClickCheckbox(true)}} />
         </div>
       </div>
     )};
@@ -32,24 +30,24 @@ class TaskDetails extends React.Component {
 
 TaskDetails.propTypes = {
   task: React.PropTypes.object,
-  onToggleEntry: React.PropTypes.func,
+
+  onClickCheckbox: React.PropTypes.func,
   onChangeNotes: React.PropTypes.func,
-  showNotesField: React.PropTypes.bool,
+
+  checked: React.PropTypes.bool,
   notes: React.PropTypes.string,
 
-  initialChecked: React.PropTypes.bool,
-  initialNotes: React.PropTypes.string,
 };
 
 TaskDetails.defaultProps = {
   task: {},
-  onToggleEntry: undefined,
+
+  onClickCheckbox: undefined,
   onChangeNotes: undefined,
-  showNotesField: false,
+
+  checked: false,
   notes: '',
 
-  initialChecked: false,
-  initialNotes: '',
 }
 
 export default TaskDetails;
