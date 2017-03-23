@@ -61,7 +61,7 @@ class TaskDetailPage extends React.Component {
   render() {
     const taskDetails = [this.props.task].concat(this.props.subTasks).map((task, index) => {
       return (
-        <TaskDetails task={task} showNotesField={this.state.taskIdsToLog[task.id]} key={task.id} onToggleEntry={(id, currentValue) => this.onToggleEntry(id, currentValue)} onChangeNotes={(id, notes) => this.onChangeNotes(id, notes)} />
+        <TaskDetails task={task} showNotesField={this.state.taskIdsToLog[task.id]} onToggleEntry={(id, currentValue) => this.onToggleEntry(id, currentValue)} onChangeNotes={(id, notes) => this.onChangeNotes(id, notes)} key={task.id} />
       );
     });
     let input;

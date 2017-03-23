@@ -19,33 +19,37 @@ class TaskDetails extends React.Component {
     let notesInput;
     return (
       <div className="list-group-item list-group-item-action justify-content-between  " key={this.props.task.id}>
-        {this.props.task.name}
-        <div className="btn-group" role="group" aria-label="Logging Options">
-          <Link to={"/tasks/" + this.props.task.id + "/edit"} className="btn btn-secondary">Edit</Link>
-          <button type="button" className="btn btn-secondary" onClick={(event) => {this.toggleNotesField()}}>Log</button>
+        <Link to={"/tasks/" + this.props.task.id + "/edit"} className="text-muted">{this.props.task.name}  <i className="fa fa-pencil"></i></Link>
+        <div className="input-group">
+          <span className="input-group-btn">
+            <button type="button" className="btn btn-secondary" onClick={(event) => {this.toggleNotesField()}}><i className={this.props.showNotesField ? "fa fa-check-square-o fa-3" : "fa fa-square-o fa-3"}></i></button>
+          </span>
+          <input className="form-control" placeholder="Notes..." defaultValue={this.props.initialNotes} onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}} />
         </div>
-
-        {this.props.showNotesField && <div className="input-group">
-          <input className="form-control" placeholder="Notes..." onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}} />
-        </div>}
       </div>
     )};
 }
 
 TaskDetails.propTypes = {
-  onLogTask: React.PropTypes.func,
   task: React.PropTypes.object,
   onToggleEntry: React.PropTypes.func,
   onChangeNotes: React.PropTypes.func,
   showNotesField: React.PropTypes.bool,
+  notes: React.PropTypes.string,
+
+  initialChecked: React.PropTypes.bool,
+  initialNotes: React.PropTypes.string,
 };
 
 TaskDetails.defaultProps = {
-  onLogTask: undefined,
   task: {},
   onToggleEntry: undefined,
   onChangeNotes: undefined,
   showNotesField: false,
+  notes: '',
+
+  initialChecked: false,
+  initialNotes: '',
 }
 
 export default TaskDetails;
