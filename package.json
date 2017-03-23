@@ -6,6 +6,9 @@
   "repository": "None",
   "author": "Cesar Toscano <cesar@bitmatica.com>",
   "license": "MIT",
+  "engine": {
+    "node": "6.10.1"
+  },
   "scripts": {
     "watch": "webpack-dev-server --config webpack.config.dev.js",
     "build": "webpack --config webpack.config.js",
