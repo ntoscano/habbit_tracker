@@ -90,9 +90,7 @@ Frontpage.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
   return {
     todos: state.cms.todos,
-    loggedTodos: state.cms.loggedTodos.sort(function(a,b) {
-      return b.updatedAt - a.updatedAt;
-    }),
+    loggedTodos: sortEntries(state.cms.loggedTodos),
   }
 }
 
@@ -105,6 +103,22 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       dispatch(fetchEntries());
     },
   }
+}
+
+const sortEntries = (entries) => {
+  let parents = entries.filter((entry, index) => {
+    return !entry.parent_entry_id;
+  }).sort(function(a,b) {
+    return b.updatedAt - a.updatedAt;
+  });
+  let allEntries = parents.map((parent, index) => {
+    let childEntries = entries.filter((entry, index) => {
+      return entry.parent_entry_id === parent.id;
+    });
+    childEntries.splice(0,0,parent);
+    return childEntries;
+  });
+  return [].concat.apply([],allEntries);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Frontpage);
