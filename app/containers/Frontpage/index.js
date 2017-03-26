@@ -6,7 +6,7 @@ import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
 import EntryGroup from 'Bitmatica/components/EntryGroup';
 import NavBar from 'Bitmatica/components/NavBar';
-import {addToDo, logToDo, addSubTask, fetchEntries, editEntry} from './actions';
+import {addToDo, fetchEntries} from './actions';
 import style from './index.scss';
 import moment from 'moment';
 
@@ -49,7 +49,7 @@ class Frontpage extends React.Component {
         return task.id === entry.task_id;
       })[0];
       return (
-          <tr>
+          <tr key={entry.id}>
             <td><Link className="text-muted" to={"/entries/" + entry.id} key={entry.id}>{entry.parent_entry_id ? '....' : ''}{task.name}</Link></td>
             <td><Link className="text-muted" to={"/entries/" + entry.id} key={entry.id}>{entry.content}</Link></td>
             <td><Link className="text-muted" to={"/entries/" + entry.id} key={entry.id}>{moment(entry.updatedAt).fromNow()}</Link></td>
@@ -80,7 +80,6 @@ class Frontpage extends React.Component {
 Frontpage.propTypes = {
   todos: React.PropTypes.array,
   loggedTodos: React.PropTypes.array,
-  fetchEntries: React.PropTypes.func,
 }
 
 Frontpage.defaultProps = {
@@ -102,15 +101,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onClickAdd: (text) => {
       dispatch(addToDo(null, text));
     },
-    onClickLog: (id, text, notes) => {
-      dispatch(logToDo(id, text, notes));
-    },
     fetchEntries: () => {
       dispatch(fetchEntries());
     },
-    editEntry: (entryId, content, check) => {
-      dispatch(editEntry(entryId, content, check))
-    }
   }
 }
 

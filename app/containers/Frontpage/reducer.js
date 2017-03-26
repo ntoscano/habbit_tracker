@@ -51,12 +51,15 @@ export default function addToDoReducer(state = initialState, action) {
       break;
 
     case constants.RECEIVE_EDITED_ENTRY:
-      // TODO replace existing entry with edited entry
+      let editedEntries = state.loggedTodos.map((entry, index) => {
+        return Object.assign({}, entry, {
+          content: entry.id === action.entry.id ? action.entry.content : entry.content,
+          check: entry.id === action.entry.id ? action.entry.check : entry.check,
+        })
+      });
       return {
         todos: state.todos,
-        loggedTodos: state.loggedTodos.filter((entry) => {
-          entry.id !== action.entry.id;
-        }).concat(action.entry),
+        loggedTodos: editedEntries,
       }
       break;
     case constants.REQUEST_ENTRIES:
@@ -71,41 +74,22 @@ export default function addToDoReducer(state = initialState, action) {
         loggedTodos: action.entries,
       }
       break;
-
-    case constants.LOG_TODO:
-      return {
-        todos: state.todos.map((todo, index) => {
-          if (todo.id !== action.todoId) {
-            return todo;
-          }
-          return Object.assign({}, todo, {
-            count: ++todo.count,
-            updatedAt: new Date(),
-          })
-        }),
-          loggedTodos: state.loggedTodos.concat([{
-            todoId: action.todoId,
-            text: action.text,
-            notes: action.notes,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-          }]),
-        };
+    case constants.PUT_TODO:
+      // Should update state to hide loading spinner
+      return state;
       break;
-    case constants.EDIT_TODO:
+    case constants.RECEIVE_EDITED_TODO:
+      let editedTodos = state.todos.map((todo, index) => {
+        return Object.assign({}, todo, {
+          name: todo.id === action.todo.id ? action.todo.name : todo.name,
+          sticky: todo.id === action.todo.id ? action.todo.sticky : todo.sticky,
+        })
+      });
+
       return {
-        todos: state.todos.map((todo, index) => {
-          if (todo.id !== action.id) {
-            return todo;
-          }
-          return Object.assign({}, todo, {
-            text: action.text,
-            sticky: action.sticky,
-            updatedAt: new Date(),
-          })
-        }),
-        loggedTodos : state.loggedTodos,
-        };
+        todos: editedTodos,
+        loggedTodos: state.loggedTodos,
+      }
       break;
 
     default:

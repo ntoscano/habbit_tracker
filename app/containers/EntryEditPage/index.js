@@ -55,11 +55,9 @@ class EntryEditPage extends React.Component {
 
     let parentEntries = this.entries().filter((entry, index) => {
       let task = this.taskForId(entry.task_id);
-      console.log(task);
       return task && !task.parent_task_id;
     });
     let parentEntry = parentEntries.length ? parentEntries[0] : undefined;
-    console.log(parentEntry);
 
     let entriesToEdit = this.entries().map((entry, index) => {
       this.props.onClickEditEntry({

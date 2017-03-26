@@ -69,20 +69,14 @@ export function receiveToDo(todo) {
   };
 }
 
-export function logToDo(todoId, text, notes) {
-  return {
-    type: constants.LOG_TODO,
-    todoId,
-    text,
-    notes,
-  };
-}
-
-export function addEntries(entries) {
-  return function (dispatch) {
-
-  }
-}
+// export function logToDo(todoId, text, notes) {
+//   return {
+//     type: constants.LOG_TODO,
+//     todoId,
+//     text,
+//     notes,
+//   };
+// }
 
 export function addEntry(id, todoId, parentEntryId, content) {
   return function (dispatch) {
@@ -180,11 +174,37 @@ export function receiveEditedEntry(entry) {
   };
 }
 
-export function editToDo(id, text, sticky) {
+export function editToDo(id, name, sticky) {
+  return function (dispatch) {
+
+    dispatch(putEntry(id, name, sticky));
+
+    return fetch(config.taskPath + '/' + id, {
+      method: 'PATCH',
+      body: JSON.stringify({
+        name: name,
+        sticky: sticky,
+      }),
+    }).then(response => response.json())
+    .then(json => {
+      dispatch(receiveEditedToDo(json))
+    })
+    .catch(e => console.error('editToDo failed', e));
+  }
+}
+
+export function putToDo(id, name, sticky) {
   return {
-    type: constants.EDIT_TODO,
+    type: constants.PUT_TODO,
     id,
-    text,
+    name,
     sticky,
+  };
+}
+
+export function receiveEditedToDo(todo) {
+  return {
+    type: constants.RECEIVE_EDITED_TODO,
+    todo,
   };
 }
