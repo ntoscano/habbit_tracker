@@ -60,15 +60,19 @@ class Frontpage extends React.Component {
       <div>
         <NavBar backButton={false} />
         <p></p>
-        <ToDoList todos={this.props.todos} onClickAddTask={this.props.onClickAdd}/>
+          <div className="container">
+            <ToDoList todos={this.props.todos} onClickAddTask={this.props.onClickAdd}/>
+          </div>
         <p></p>
-        <div className="list-group">
-          <div className="list-group-item">
-            <table className="table table-hover">
-              <tbody>
-                {entries}
-              </tbody>
-            </table>
+        <div className="container">
+          <div className="list-group">
+            <div className="list-group-item">
+              <table className="table table-hover">
+                <tbody>
+                  {entries}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <p></p>
