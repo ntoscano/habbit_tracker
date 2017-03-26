@@ -14,28 +14,30 @@ class TaskEditPage extends React.Component {
       <div>
         <NavBar backButton={true} />
         <p></p>
-        <div className="card-columns">
-          <div className="card">
-            <div className="list-group list-group-flush">
-              <div className="list-group-item">
-                <div className="input-group">
-                  <input className="form-control" defaultValue={this.props.task.name} placeholder="" ref={node => {
-                    input = node;
-                  }} />
+        <div className="container">
+          <div className="card-columns">
+            <div className="card">
+              <div className="list-group list-group-flush">
+                <div className="list-group-item">
+                  <div className="input-group">
+                    <input className="form-control" defaultValue={this.props.task.name} placeholder="" ref={node => {
+                      input = node;
+                    }} />
+                  </div>
+                </div>
+                <div className="list-group-item list-group-item-action justify-content-between">
+                  Show on front page
+                  <div className="form-check form-check-inline">
+                    <label className="form-check-label">
+                      <input className="form-check-input" type="checkbox" id="inlineCheckbox1" defaultChecked={this.props.task.sticky} ref={(node) => stickyCheckbox = node} />
+                    </label>
+                  </div>
                 </div>
               </div>
-              <div className="list-group-item list-group-item-action justify-content-between">
-                Show on front page
-                <div className="form-check form-check-inline">
-                  <label className="form-check-label">
-                    <input className="form-check-input" type="checkbox" id="inlineCheckbox1" defaultChecked={this.props.task.sticky} ref={(node) => stickyCheckbox = node} />
-                  </label>
-                </div>
+              <div className="text-right">
+                <button className="btn btn-secondary" type="button" onClick={() => {browserHistory.goBack()}}>Cancel</button>
+                <button className="btn btn-success" type="button" onClick={() => {if (input.value) {this.props.onClickSaveEdit(this.props.task.id, input.value, stickyCheckbox.checked);browserHistory.goBack();}}}>Save</button>
               </div>
-            </div>
-            <div className="text-right">
-              <button className="btn btn-secondary" type="button" onClick={() => {browserHistory.goBack()}}>Cancel</button>
-              <button className="btn btn-success" type="button" onClick={() => {if (input.value) {this.props.onClickSaveEdit(this.props.task.id, input.value, stickyCheckbox.checked);browserHistory.goBack();}}}>Save</button>
             </div>
           </div>
         </div>

@@ -92,22 +92,24 @@ class TaskDetailPage extends React.Component {
       <div>
         <NavBar backButton={true} />
         <p></p>
-        <div className="card-columns">
-          <div className="card">
-            <div className="list-group list-group-flush">
-              {taskDetails}
-              <div className="list-group-item list-group-item-action justify-content-between">
-                <div className="input-group">
-                  <input className="form-control" placeholder="Add subtask..." ref={node => {
-                    input = node;
-                  }} onKeyPress={(e) => {if (e.key === 'Enter') this.addTask(input)}}/>
-                  <span className="input-group-btn">
-                    <button className="btn btn-secondary" type="button" onClick={() => {this.addTask(input)}}>Add</button>
-                  </span>
+        <div className="container">
+          <div className="card-columns">
+            <div className="card">
+              <div className="list-group list-group-flush">
+                {taskDetails}
+                <div className="list-group-item list-group-item-action justify-content-between">
+                  <div className="input-group">
+                    <input className="form-control" placeholder="Add subtask..." ref={node => {
+                      input = node;
+                    }} onKeyPress={(e) => {if (e.key === 'Enter') this.addTask(input)}}/>
+                    <span className="input-group-btn">
+                      <button className="btn btn-secondary" type="button" onClick={() => {this.addTask(input)}}>Add</button>
+                    </span>
+                  </div>
                 </div>
-              </div>
-              <div className="text-right">
-                <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
+                <div className="text-right">
+                  <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
+                </div>
               </div>
             </div>
           </div>

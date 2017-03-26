@@ -124,12 +124,14 @@ class EntryEditPage extends React.Component {
       <div>
         <NavBar backButton={true} />
         <p></p>
-        <div className="card-columns">
-          <div className="card">
-            <div className="list-group list-group-flush">
-              {taskDetails}
-              <div className="text-right">
-                <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
+        <div className="container">
+          <div className="card-columns">
+            <div className="card">
+              <div className="list-group list-group-flush">
+                {taskDetails}
+                <div className="text-right">
+                  <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
+                </div>
               </div>
             </div>
           </div>
