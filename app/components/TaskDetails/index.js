@@ -19,7 +19,7 @@ class TaskDetails extends React.Component {
       <div className="list-group-item list-group-item-action justify-content-between  " key={this.props.task.id}>
         <Link to={"/tasks/" + this.props.task.id + "/edit"} className="text-muted">{this.props.task.name}  <i className="fa fa-pencil"></i></Link>
         <div className="input-group">
-          <span className="input-group-addon">
+          <span className="input-group-addon" onClick={(event) => {this.onClickCheckbox(event.target.checked)}}>
             <input type="checkbox" checked={this.props.checked} onClick={(event) => {this.onClickCheckbox(event.target.checked)}} aria-label="Checkbox for following text input" />
           </span>
           <input className="form-control" placeholder="Notes..." value={this.props.notes} onChange={(e) => {this.props.onChangeNotes(this.props.task.id, e.target.value)}}/>

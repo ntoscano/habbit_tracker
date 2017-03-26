@@ -141,7 +141,7 @@ export function receiveEntries(entries) {
 
 export function editEntry(entryId, content, check) {
   return function (dispatch) {
-
+    // TODO should remove parent_entry_id from subtasks if parent is now unchecked
     dispatch(putEntry(entryId, content, check));
 
     return fetch(config.entryPath + '/' + entryId, {
