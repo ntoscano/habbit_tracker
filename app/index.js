@@ -3,7 +3,7 @@ import 'Bitmatica/styles/main.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 import { createStore, combineReducers , applyMiddleware} from "redux";
 import { Provider } from 'react-redux'
 import { AppContainer } from 'react-hot-loader';
@@ -31,11 +31,11 @@ const store = createStore(
 );
 
 store.dispatch(fetchToDos()); // There's probably a better place to initiate this
-store.dispatch(fetchEntries()); // There's probably a better place to initiate this
+// store.dispatch(fetchEntries()); // There's probably a better place to initiate this
 
-store.subscribe(() => {
-  saveState(store.getState());
-});
+// store.subscribe(() => {
+//   saveState(store.getState());
+// });
 
 const render = (Component) => {
   ReactDOM.render(

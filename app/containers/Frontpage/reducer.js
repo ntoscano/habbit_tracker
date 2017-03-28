@@ -3,6 +3,7 @@ import constants from "./constants";
 const initialState = {
   todos: [],
   loggedTodos: [],
+  user: {},
 };
 
 export default function addToDoReducer(state = initialState, action) {
@@ -18,6 +19,7 @@ export default function addToDoReducer(state = initialState, action) {
       return {
         todos: action.todos,
         loggedTodos: state.loggedTodos,
+        user: state.user,
       }
       break;
 
@@ -31,6 +33,7 @@ export default function addToDoReducer(state = initialState, action) {
       return {
         todos: state.todos.concat(action.todo),
         loggedTodos: state.loggedTodos,
+        user: state.user,
       }
       break;
 
@@ -43,6 +46,7 @@ export default function addToDoReducer(state = initialState, action) {
       return {
         todos: state.todos,
         loggedTodos: state.loggedTodos.concat(action.entry),
+        user: state.user,
       }
       break;
     case constants.PUT_ENTRY:
@@ -60,6 +64,7 @@ export default function addToDoReducer(state = initialState, action) {
       return {
         todos: state.todos,
         loggedTodos: editedEntries,
+        user: state.user,
       }
       break;
     case constants.REQUEST_ENTRIES:
@@ -72,6 +77,7 @@ export default function addToDoReducer(state = initialState, action) {
       return {
         todos: state.todos,
         loggedTodos: action.entries,
+        user: state.user,
       }
       break;
     case constants.PUT_TODO:
@@ -89,7 +95,37 @@ export default function addToDoReducer(state = initialState, action) {
       return {
         todos: editedTodos,
         loggedTodos: state.loggedTodos,
+        user: state.user,
       }
+      break;
+
+    case constants.POST_USER:
+      // Should update state to hide loading spinner
+      return state;
+      break;
+
+    case constants.RECEIVE_USER:
+      return {
+        todos: state.todos,
+        loggedTodos: state.loggedTodos,
+        user: action.user,
+      }
+      break;
+
+    case constants.POST_LOGIN:
+      // Should update state to hide loading spinner
+      return state;
+      break;
+
+    case constants.RECEIVE_LOGIN:
+      console.log('reducer for receive login');
+      console.log('new user',action.user);
+      return {
+        todos: state.todos,
+        loggedTodos: state.loggedTodos,
+        user: action.user,
+      }
+
       break;
 
     default:

@@ -6,21 +6,26 @@ import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
 import EntryGroup from 'Bitmatica/components/EntryGroup';
 import NavBar from 'Bitmatica/components/NavBar';
-import {addToDo, fetchEntries} from './actions';
+import {addToDo, fetchEntries, fetchToDos} from './actions';
 import style from './index.scss';
 import moment from 'moment';
 
 
-let timerId;
+let fetchEntriesTimerId;
+let fetchTasksTimerId;
 
 class Frontpage extends React.Component {
 
   componentDidMount () {
     this.props.fetchEntries();
-    timerId = setInterval(this.props.fetchEntries, 1000);
+    this.props.fetchTasks();
+
+    // fetchEntriesTimerId = setInterval(this.props.fetchEntries, 1000);
+    // fetchTasksTimerId = setInterval(this.props.fetchTasks, 1000);
   }
   componentWillUnmount () {
-    clearInterval(timerId);
+    // clearInterval(fetchEntriesTimerId);
+    // clearInterval(fetchTasksTimerId);
   }
 
   entryGroups(entries) {
@@ -59,9 +64,10 @@ class Frontpage extends React.Component {
     return (
       <div>
         <NavBar backButton={false} />
+        {this.props.user.id}
         <p></p>
           <div className="container">
-            <ToDoList todos={this.props.todos} onClickAddTask={this.props.onClickAdd}/>
+            <ToDoList todos={this.props.todos} onClickAddTask={(text, userId=this.props.user.id) => {this.props.onClickAdd(text, userId)}}/>
           </div>
         <p></p>
         <div className="container">
@@ -84,27 +90,33 @@ class Frontpage extends React.Component {
 Frontpage.propTypes = {
   todos: React.PropTypes.array,
   loggedTodos: React.PropTypes.array,
+  user: React.PropTypes.object,
 }
 
 Frontpage.defaultProps = {
   todos: [],
   loggedTodos: [],
+  user: {},
 }
 
 const mapStateToProps = (state, ownProps) => {
   return {
     todos: state.cms.todos,
     loggedTodos: sortEntries(state.cms.loggedTodos),
+    user: state.cms.user,
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClickAdd: (text) => {
-      dispatch(addToDo(null, text));
+    onClickAdd: (text, userId) => {
+      dispatch(addToDo(null, text, userId));
     },
     fetchEntries: () => {
       dispatch(fetchEntries());
+    },
+    fetchTasks: () => {
+      dispatch(fetchToDos());
     },
   }
 }
