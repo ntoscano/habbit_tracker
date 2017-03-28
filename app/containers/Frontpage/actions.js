@@ -6,6 +6,8 @@ const config = {
 }
 config.taskPath = config.basePath + '/task';
 config.entryPath = config.basePath + '/entry';
+config.userPath = config.basePath + '/user';
+config.loginPath = config.basePath + '/login';
 
 // http://redux.js.org/docs/advanced/AsyncActions.html
 export function fetchToDos() {
@@ -33,10 +35,10 @@ export function receiveToDos(todos) {
   };
 }
 
-export function addToDo(parentTaskId, name) {
+export function addToDo(parentTaskId, name, ownerId) {
+  console.log('adding task with ownerId ' + ownerId);
   return function (dispatch) {
-
-    dispatch(postToDo(parentTaskId, name))
+    dispatch(postToDo(parentTaskId, name, ownerId))
 
     return fetch(config.taskPath, {
       method: 'POST',
@@ -45,6 +47,7 @@ export function addToDo(parentTaskId, name) {
         name: name,
         sticky: parentTaskId ? false: true,
         parent_task_id: parentTaskId ? parentTaskId : undefined,
+        owner_id: ownerId
       }),
     }).then(response => response.json())
     .then(json => {
@@ -54,11 +57,12 @@ export function addToDo(parentTaskId, name) {
   }
 }
 
-export function postToDo(parentTaskId, name) {
+export function postToDo(parentTaskId, name, ownerId) {
   return {
     type: constants.POST_TODO,
     parentTaskId,
     name,
+    ownerId,
   };
 }
 
@@ -68,15 +72,6 @@ export function receiveToDo(todo) {
     todo,
   };
 }
-
-// export function logToDo(todoId, text, notes) {
-//   return {
-//     type: constants.LOG_TODO,
-//     todoId,
-//     text,
-//     notes,
-//   };
-// }
 
 export function addEntry(id, todoId, parentEntryId, content) {
   return function (dispatch) {
@@ -206,5 +201,70 @@ export function receiveEditedToDo(todo) {
   return {
     type: constants.RECEIVE_EDITED_TODO,
     todo,
+  };
+}
+
+export function addUser(email, password) {
+  return function (dispatch) {
+    dispatch(postUser(email, password))
+    return fetch(config.userPath, {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }).then(response => response.json())
+    .then(json => {
+      dispatch(receiveUser(json))
+    })
+    .catch(e => console.error('addUser failed', e));
+  }
+}
+
+export function postUser(email, password) {
+  return {
+    type: constants.POST_USER,
+    email,
+    password,
+  };
+}
+
+export function receiveUser(user) {
+  return {
+    type: constants.RECEIVE_USER,
+    user,
+  };
+}
+
+export function loginUser(email, password) {
+  return function (dispatch) {
+    dispatch(postLogin(email, password))
+    return fetch(config.loginPath, {
+      method: 'POST',
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    }).then(response => response.json())
+    .then(json => {
+      dispatch(receiveLogin(json.user))
+    })
+    .catch(e => console.error('loginUser failed', e));
+  }
+}
+
+export function postLogin(email, password) {
+  return {
+    type: constants.POST_LOGIN,
+    email,
+    password,
+  };
+}
+
+export function receiveLogin(user) {
+  console.log('logged in user:', user);
+  return {
+    type: constants.RECEIVE_LOGIN,
+    user,
   };
 }

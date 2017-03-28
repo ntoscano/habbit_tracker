@@ -16,6 +16,12 @@ export const RECEIVE_ENTRY = "RECEIVE_ENTRY";
 export const PUT_ENTRY = "PUT_ENTRY";
 export const RECEIVE_EDITED_ENTRY = "RECEIVE_EDITED_ENTRY";
 
+export const POST_USER = "POST_USER";
+export const RECEIVE_USER = "RECEIVE_USER";
+
+export const POST_LOGIN = "POST_LOGIN";
+export const RECEIVE_LOGIN = "RECEIVE_LOGIN";
+
 export default {
   REQUEST_TODOS,
   RECEIVE_TODOS,
@@ -34,4 +40,10 @@ export default {
 
   PUT_ENTRY,
   RECEIVE_EDITED_ENTRY,
+
+  POST_USER,
+  RECEIVE_USER,
+
+  POST_LOGIN,
+  RECEIVE_LOGIN,
 };
