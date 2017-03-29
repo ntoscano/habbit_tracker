@@ -6,7 +6,7 @@ import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
 import EntryGroup from 'Bitmatica/components/EntryGroup';
 import NavBar from 'Bitmatica/components/NavBar';
-import {addToDo, fetchEntries, fetchToDos} from './actions';
+import {addToDo, fetchEntries, fetchToDos, fetchCurrentUser} from './actions';
 import style from './index.scss';
 import moment from 'moment';
 
@@ -17,6 +17,7 @@ let fetchTasksTimerId;
 class Frontpage extends React.Component {
 
   componentDidMount () {
+    this.props.fetchCurrentUser();
     this.props.fetchEntries();
     this.props.fetchTasks();
 
@@ -118,6 +119,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     fetchTasks: () => {
       dispatch(fetchToDos());
     },
+    fetchCurrentUser: () => {
+      dispatch(fetchCurrentUser());
+    }
   }
 }
 

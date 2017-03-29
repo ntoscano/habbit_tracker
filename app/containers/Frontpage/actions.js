@@ -9,6 +9,7 @@ config.entryPath = config.basePath + '/entry';
 config.userPath = config.basePath + '/user';
 config.loginPath = config.basePath + '/login';
 config.logoutPath = config.basePath + '/logout';
+config.whoamiPath = config.basePath + '/whoami';
 
 // http://redux.js.org/docs/advanced/AsyncActions.html
 export function fetchToDos() {
@@ -307,5 +308,33 @@ export function getLogout() {
 export function receiveLogout() {
   return {
     type: constants.RECEIVE_LOGOUT,
+  };
+}
+
+export function fetchCurrentUser() {
+  return function (dispatch) {
+    dispatch(getCurrentUser())
+    return fetch(config.whoamiPath, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    .then(response => response.json())
+    .then(json => {
+      dispatch(receiveCurrentUser(json))
+    })
+    .catch(e => console.error('fetchCurrentUser failed', e));
+  }
+}
+
+export function getCurrentUser() {
+  return {
+    type: constants.GET_CURRENT_USER,
+  };
+}
+
+export function receiveCurrentUser(user) {
+  return {
+    type: constants.RECEIVE_CURRENT_USER,
+    user,
   };
 }

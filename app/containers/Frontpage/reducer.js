@@ -137,6 +137,19 @@ export default function addToDoReducer(state = initialState, action) {
         user: {},
       }
       break;
+    case constants.GET_CURRENT_USER:
+      // Should update state to hide loading spinner
+      return state;
+      break;
+
+    case constants.RECEIVE_CURRENT_USER:
+      return {
+        todos: state.todos,
+        loggedTodos: state.loggedTodos,
+        user: action.user,
+      }
+      break;
+
     default:
       return state;
   }
