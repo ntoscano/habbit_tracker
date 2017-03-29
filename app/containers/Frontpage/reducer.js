@@ -118,16 +118,25 @@ export default function addToDoReducer(state = initialState, action) {
       break;
 
     case constants.RECEIVE_LOGIN:
-      console.log('reducer for receive login');
-      console.log('new user',action.user);
       return {
         todos: state.todos,
         loggedTodos: state.loggedTodos,
         user: action.user,
       }
-
       break;
 
+    case constants.GET_LOGOUT:
+      // Should update state to hide loading spinner
+      return state;
+      break;
+
+    case constants.RECEIVE_LOGOUT:
+      return {
+        todos: state.todos,
+        loggedTodos: state.loggedTodos,
+        user: {},
+      }
+      break;
     default:
       return state;
   }
