@@ -77,9 +77,9 @@ export function receiveToDo(todo) {
   };
 }
 
-export function addEntry(id, todoId, parentEntryId, content) {
+export function addEntry(id, todoId, parentEntryId, content, ownerId) {
   return function (dispatch) {
-    dispatch(postEntry(todoId, parentEntryId, content))
+    dispatch(postEntry(todoId, parentEntryId, content, ownerId))
     return fetch(config.entryPath, {
       method: 'POST',
       credentials: 'include',
@@ -89,6 +89,7 @@ export function addEntry(id, todoId, parentEntryId, content) {
         task_id: todoId,
         parent_entry_id: parentEntryId,
         check: true,
+        owner_id: ownerId,
       }),
     }).then(response => response.json())
     .then(json => {
@@ -98,12 +99,13 @@ export function addEntry(id, todoId, parentEntryId, content) {
   }
 }
 
-export function postEntry(todoId, parentEntryId, content) {
+export function postEntry(todoId, parentEntryId, content, ownerId) {
   return {
     type: constants.POST_ENTRY,
     todoId,
     parentEntryId,
     content,
+    ownerId,
   };
 }
 
