@@ -62,6 +62,7 @@ class TaskDetailPage extends React.Component {
         taskId,
         parent_entry_id: task.id === this.props.task.id ? undefined : parent_entry_id,
         content: this.state.notesForTaskId[taskId],
+        owner_id: this.props.user.id,
       }
     });
     this.props.onCLickLogAll(entries);
@@ -69,7 +70,7 @@ class TaskDetailPage extends React.Component {
 
   addTask(input) {
     if (input.value) {
-      this.props.onClickAddTask(this.props.task.id, input.value);
+      this.props.onClickAddTask(this.props.task.id, input.value, this.props.user.id);
       input.value='';
     }
   }
@@ -122,11 +123,13 @@ class TaskDetailPage extends React.Component {
 TaskDetailPage.propTypes = {
   task: React.PropTypes.object,
   subTasks: React.PropTypes.array,
+  user: React.PropTypes.object,
 }
 
 TaskDetailPage.defaultProps = {
   task: {},
   subTasks: [],
+  user: {},
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -142,17 +145,18 @@ const mapStateToProps = (state, ownProps) => {
   return {
     task,
     subTasks,
+    user: state.cms.user,
   }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    onClickAddTask: (parentTaskId, name) => {
-      dispatch(addToDo(parentTaskId, name));
+    onClickAddTask: (parentTaskId, name, userId) => {
+      dispatch(addToDo(parentTaskId, name, userId));
     },
     onCLickLogAll: (entries) => {
       entries.map((entry, index) => {
-        dispatch(addEntry(entry.id, entry.taskId, entry.parent_entry_id, entry.content))
+        dispatch(addEntry(entry.id, entry.taskId, entry.parent_entry_id, entry.content, entry.owner_id))
       });
     },
   }
