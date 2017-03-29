@@ -3,7 +3,7 @@ import 'Bitmatica/styles/main.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter as Router } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import { createStore, combineReducers , applyMiddleware} from "redux";
 import { Provider } from 'react-redux'
 import { AppContainer } from 'react-hot-loader';
@@ -16,26 +16,16 @@ import frontpageReducer from 'Bitmatica/containers/Frontpage/reducer';
 
 import { fetchToDos, fetchEntries } from 'Bitmatica/containers/Frontpage/actions'
 
-import {loadState, saveState} from './localStorage';
-
-const persistedState = loadState();
 const store = createStore(
   combineReducers({
     cms: frontpageReducer,
     routing: routerReducer,
   }),
-  persistedState,
+  undefined,
   applyMiddleware(
     thunkMiddleware // lets us dispatch() functions
   ),
 );
-
-store.dispatch(fetchToDos()); // There's probably a better place to initiate this
-// store.dispatch(fetchEntries()); // There's probably a better place to initiate this
-
-// store.subscribe(() => {
-//   saveState(store.getState());
-// });
 
 const render = (Component) => {
   ReactDOM.render(

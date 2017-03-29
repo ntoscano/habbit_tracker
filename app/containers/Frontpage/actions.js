@@ -8,12 +8,16 @@ config.taskPath = config.basePath + '/task';
 config.entryPath = config.basePath + '/entry';
 config.userPath = config.basePath + '/user';
 config.loginPath = config.basePath + '/login';
+config.logoutPath = config.basePath + '/logout';
 
 // http://redux.js.org/docs/advanced/AsyncActions.html
 export function fetchToDos() {
   return function (dispatch) {
     dispatch(requestToDos())
-    return fetch(config.taskPath)
+    return fetch(config.taskPath, {
+      method: 'GET',
+      credentials: 'include',
+    })
       .then(response => response.json())
       .then(json =>
         dispatch(receiveToDos(json))
@@ -36,12 +40,12 @@ export function receiveToDos(todos) {
 }
 
 export function addToDo(parentTaskId, name, ownerId) {
-  console.log('adding task with ownerId ' + ownerId);
   return function (dispatch) {
     dispatch(postToDo(parentTaskId, name, ownerId))
 
     return fetch(config.taskPath, {
       method: 'POST',
+      credentials: 'include',
       body: JSON.stringify({
         id: v4(),
         name: name,
@@ -78,6 +82,7 @@ export function addEntry(id, todoId, parentEntryId, content) {
     dispatch(postEntry(todoId, parentEntryId, content))
     return fetch(config.entryPath, {
       method: 'POST',
+      credentials: 'include',
       body: JSON.stringify({
         id: id,
         content: content,
@@ -112,7 +117,10 @@ export function receiveEntry(entry) {
 export function fetchEntries() {
   return function (dispatch) {
     dispatch(requestEntries())
-    return fetch(config.entryPath)
+    return fetch(config.entryPath, {
+      method: 'GET',
+      credentials: 'include',
+    })
       .then(response => response.json())
       .then(json =>
         dispatch(receiveEntries(json))
@@ -141,6 +149,7 @@ export function editEntry(entryId, content, check) {
 
     return fetch(config.entryPath + '/' + entryId, {
       method: 'PATCH',
+      credentials: 'include',
       body: JSON.stringify({
         content: content,
         check: check,
@@ -176,6 +185,7 @@ export function editToDo(id, name, sticky) {
 
     return fetch(config.taskPath + '/' + id, {
       method: 'PATCH',
+      credentials: 'include',
       body: JSON.stringify({
         name: name,
         sticky: sticky,
@@ -209,6 +219,7 @@ export function addUser(email, password) {
     dispatch(postUser(email, password))
     return fetch(config.userPath, {
       method: 'POST',
+      credentials: 'include',
       body: JSON.stringify({
         email,
         password,
@@ -236,20 +247,22 @@ export function receiveUser(user) {
   };
 }
 
-export function loginUser(email, password) {
+export function login(email, password) {
   return function (dispatch) {
     dispatch(postLogin(email, password))
     return fetch(config.loginPath, {
       method: 'POST',
+      credentials: 'include',
       body: JSON.stringify({
         email,
         password,
       }),
-    }).then(response => response.json())
+    })
+    .then(response => response.json())
     .then(json => {
       dispatch(receiveLogin(json.user))
     })
-    .catch(e => console.error('loginUser failed', e));
+    .catch(e => console.error('login failed', e));
   }
 }
 
@@ -262,9 +275,35 @@ export function postLogin(email, password) {
 }
 
 export function receiveLogin(user) {
-  console.log('logged in user:', user);
   return {
     type: constants.RECEIVE_LOGIN,
     user,
+  };
+}
+
+export function logout() {
+  return function (dispatch) {
+    dispatch(getLogout())
+    return fetch(config.logoutPath, {
+      method: 'GET',
+      credentials: 'include',
+    })
+    .then(response => response.json())
+    .then(json => {
+      dispatch(receiveLogout())
+    })
+    .catch(e => console.error('logout failed', e));
+  }
+}
+
+export function getLogout() {
+  return {
+    type: constants.GET_LOGOUT,
+  };
+}
+
+export function receiveLogout() {
+  return {
+    type: constants.RECEIVE_LOGOUT,
   };
 }

@@ -22,6 +22,9 @@ export const RECEIVE_USER = "RECEIVE_USER";
 export const POST_LOGIN = "POST_LOGIN";
 export const RECEIVE_LOGIN = "RECEIVE_LOGIN";
 
+export const GET_LOGOUT = "GET_LOGOUT";
+export const RECEIVE_LOGOUT = "RECEIVE_LOGOUT";
+
 export default {
   REQUEST_TODOS,
   RECEIVE_TODOS,
@@ -46,4 +49,7 @@ export default {
 
   POST_LOGIN,
   RECEIVE_LOGIN,
+
+  GET_LOGOUT,
+  RECEIVE_LOGOUT,
 };

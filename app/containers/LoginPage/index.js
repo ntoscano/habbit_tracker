@@ -1,9 +1,10 @@
 import React from 'react';
 import style from './index.scss';
 import {connect, dispatch} from 'react-redux';
+import { Link } from 'react-router-dom';
 import NavBar from 'Bitmatica/components/NavBar';
-import {loginUser} from 'Bitmatica/containers/Frontpage/actions';
-
+import {login, logout, fetchToDos} from 'Bitmatica/containers/Frontpage/actions';
+import {SignupPage} from 'Bitmatica/containers/SignupPage';
 
 class LoginPage extends React.Component {
 
@@ -33,6 +34,10 @@ class LoginPage extends React.Component {
             </div>
           </div>
           <button type="submit" className="btn btn-primary" onClick={(e) => {this.props.login(email.value, password.value)}}>Login</button>
+
+          <button className="btn btn-primary" onClick={(e) => {this.props.fetchTodos()}}>Fetch Tasks</button>
+          <button className="btn btn-primary" onClick={(e) => {this.props.logout()}}>Logout</button>
+          <Link to="/signup">Signup</Link>
         </div>
       </div>
     )
@@ -56,7 +61,16 @@ const mapStateToProps = (state, ownProps) => {
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     login: (email, password) => {
-      dispatch(loginUser(email, password));
+      dispatch(login(email, password));
+    },
+    fetchTodos: () => {
+      dispatch(fetchToDos());
+    },
+    logout: () => {
+      dispatch(logout());
+    },
+    signup: () => {
+      dispatch(signup());
     },
   }
 }

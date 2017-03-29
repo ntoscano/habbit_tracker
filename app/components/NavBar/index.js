@@ -20,8 +20,7 @@ class NavBar extends React.Component {
               </ul>}
           </div>
           <Link to="/" className="navbar-brand d-flex mx-auto">Habbit</Link>
-          <div className="navbar-collapse collapse dual-collapse">
-          </div>
+          <Link to="/login" className="pull-xs-right">Login</Link>
         </nav>
       </div>
     )
