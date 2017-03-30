@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import ToDoList from 'Bitmatica/components/ToDoList';
 import AddToDo from 'Bitmatica/components/AddToDo';
 import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
-import EntryGroup from 'Bitmatica/components/EntryGroup';
 import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, fetchEntries, fetchToDos, fetchCurrentUser} from './actions';
 import style from './index.scss';
@@ -26,20 +25,6 @@ class Frontpage extends React.Component {
   componentWillUnmount () {
     // clearInterval(fetchEntriesTimerId);
     // clearInterval(fetchTasksTimerId);
-  }
-
-  entryGroups(entries) {
-    let entryGroups = [];
-    entries.sort(function(e1,e2) {
-      return e2.updatedAt - e1.updatedAt;
-    }).map((entry, index) => {
-      if (entry.parent_entry_id === '') {
-        entryGroups = entryGroups.concat([entries.filter((ent) => {
-          return ent.parent_entry_id === entry.id || ent.id === entry.id;
-        })]);
-      }
-    });
-    return entryGroups;
   }
 
   parentTaskIdForEntryGroup(entryGroup) {
