@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { browserHistory } from 'react-router'
 import TaskDetails from 'Bitmatica/components/TaskDetails';
 import NavBar from 'Bitmatica/components/NavBar';
-import {addToDo, logToDo, addSubTask, addEntry} from 'Bitmatica/containers/Frontpage/actions';
+import {addToDo, logToDo, addSubTask, addEntry, addEntries} from 'Bitmatica/containers/Frontpage/actions';
 import {v4} from 'node-uuid';
 
 
@@ -68,6 +68,21 @@ class TaskDetailPage extends React.Component {
     this.props.onCLickLogAll(entries);
   }
 
+  saveEntriesNew () {
+    let entries = Object.keys(this.state.taskIdsToLog).filter((key, index) => {
+      return this.state.taskIdsToLog[key];
+    }).map((taskId, index) => {
+
+      return {
+        taskId,
+        isParent: this.props.taskId === taskId,
+        content: this.state.notesForTaskId[taskId],
+        owner_id: this.props.user.id,
+      }
+    });
+    this.props.onCLickLogAll(entries);
+  }
+
   addTask(input) {
     if (input.value) {
       this.props.onClickAddTask(this.props.task.id, input.value, this.props.user.id);
@@ -107,7 +122,7 @@ class TaskDetailPage extends React.Component {
                   </div>
                 </div>
                 <div className="text-right">
-                  <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
+                  <button className="btn btn-success" type="button" onClick={() => {this.saveEntriesNew();browserHistory.goBack();}}>Save</button>
                 </div>
               </div>
             </div>
@@ -156,6 +171,9 @@ const mapDispatchToProps = (dispatch, ownProps) => {
       entries.map((entry, index) => {
         dispatch(addEntry(entry.id, entry.taskId, entry.parent_entry_id, entry.content, entry.owner_id))
       });
+    },
+    onCLickLogAll: (entries) => {
+      dispatch(addEntries(entries));
     },
   }
 }

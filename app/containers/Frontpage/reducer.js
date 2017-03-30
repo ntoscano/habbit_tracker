@@ -40,6 +40,21 @@ export default function addToDoReducer(state = initialState, action) {
       }
       break;
 
+    case constants.POST_ENTRIES:
+      // Should update state to hide loading spinner
+      return state;
+      break;
+
+    case constants.RECEIVE_POSTED_ENTRIES:
+    // TODO make sure concat is working
+      return {
+        todos: state.todos,
+        loggedTodos: state.loggedTodos.concat(action.entries),
+        user: state.user,
+        redirectUrl: state.redirectUrl,
+      }
+      break;
+
     case constants.POST_ENTRY:
       // Should update state to hide loading spinner
       return state;
@@ -113,12 +128,6 @@ export default function addToDoReducer(state = initialState, action) {
 
     case constants.RECEIVE_USER:
       return state;
-      // return {
-      //   todos: state.todos,
-      //   loggedTodos: state.loggedTodos,
-      //   user: state.user,
-      //   redirectUrl: state.redirectUrl,
-      // }
       break;
 
     case constants.POST_LOGIN:
