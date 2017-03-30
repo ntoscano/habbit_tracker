@@ -3,20 +3,16 @@ import 'Bitmatica/styles/main.scss';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom'
+import { HashRouter as Router , Route} from 'react-router-dom'
 import { createStore, combineReducers , applyMiddleware} from "redux";
 import { Provider } from 'react-redux'
 import { AppContainer } from 'react-hot-loader';
 import thunkMiddleware from 'redux-thunk'
-
 import { syncHistoryWithStore, routerReducer } from "react-router-redux";
 
-import routes from 'Bitmatica/routes';
 import frontpageReducer from 'Bitmatica/containers/Frontpage/reducer';
 
-import { fetchToDos, fetchEntries } from 'Bitmatica/containers/Frontpage/actions'
-
-// import App from 'Bitmatica/containers/App';
+import App from 'Bitmatica/containers/App';
 
 const store = createStore(
   combineReducers({
@@ -39,10 +35,10 @@ const render = (Component) => {
     document.getElementById('root')
   );
 };
-const App = routes;
+
 render(
     <Router>
-      <App />
+      <Route component={App} />
     </Router>
 );
 

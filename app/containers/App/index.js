@@ -1,8 +1,18 @@
 import React from 'react';
 import style from './index.scss';
 import {connect, dispatch} from 'react-redux';
-import Routes from 'Bitmatica/containers/Routes';
-import {fetchCurrentUser} from 'Bitmatica/containers/Frontpage/actions';
+import { browserHistory , Route, Switch, Redirect} from 'react-router-dom';
+import {fetchCurrentUser, logout, setRedirectUrl} from 'Bitmatica/containers/Frontpage/actions';
+import NavBar from 'Bitmatica/components/NavBar';
+
+import Frontpage from 'Bitmatica/containers/Frontpage';
+import ErrorPage from 'Bitmatica/containers/ErrorPage';
+import TaskDetailPage from 'Bitmatica/containers/TaskDetailPage';
+import TaskEditPage from 'Bitmatica/containers/TaskEditPage';
+import EntryEditPage from 'Bitmatica/containers/EntryEditPage';
+import SignupPage from 'Bitmatica/containers/SignupPage';
+import LoginPage from 'Bitmatica/containers/LoginPage';
+// import EnsureLoggedInContainer from 'Bitmatica/containers/EnsureLoggedInContainer';
 
 class App extends React.Component {
 
@@ -16,19 +26,45 @@ class App extends React.Component {
 
     if (isLoggingIn) {
       console.log('isLoggingIn');
+      this.props.history.push(this.props.redirectUrl);
       // send to redirectUrl
-      console.log(this.props.history);
     } else if (isLoggingOut) {
       console.log('isLoggingOut');
+      this.props.history.replace("/login");
       // send to login page
     }
   }
 
   render() {
-    console.log(this.props);
-    return (
-      <Routes />
+    // From https://reacttraining.com/react-router/web/example/auth-workflow
+    const PrivateRoute = ({ component, ...rest }) => (
+      <Route {...rest} render={props => (
+        this.props.user ? (
+          React.createElement(component, props)
+        ) : (
+          <Redirect to={{
+            pathname: '/login',
+          }}/>
+        )
+      )}/>
     )
+
+    return (
+      <div>
+        <NavBar user={this.props.user} onClickLogout={this.props.logout} />
+
+        <Route exact path="/signup" component={SignupPage} />
+        <Route exact path="/login" component={LoginPage} />
+        <Route path="/404" component={ErrorPage} />
+
+        <PrivateRoute exact path="/" component={Frontpage} />
+        <PrivateRoute exact path="/tasks/:id" component={TaskDetailPage} />
+        <PrivateRoute exact path="/tasks/:id/edit" component={TaskEditPage} />
+        <PrivateRoute exact path="/entries/:id" component={EntryEditPage} />
+        <PrivateRoute path="/404" component={ErrorPage} />
+
+      </div>
+    );
   }
 }
 
@@ -53,7 +89,13 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     fetchCurrentUser: () => {
       dispatch(fetchCurrentUser());
-    }
+    },
+    logout: () => {
+      dispatch(logout());
+    },
+    setRedirectUrl: (url) => {
+      dispatch(setRedirectUrl(url));
+    },
   }
 }
 

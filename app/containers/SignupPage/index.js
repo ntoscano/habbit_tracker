@@ -12,8 +12,6 @@ class SignupPage extends React.Component {
     let password;
     return (
       <div>
-        <NavBar backButton={true} user={this.props.user}/>
-        <p></p>
         <div className="container">
           <div className="form-group row">
             <label className="col-2 col-form-label">Email</label>
@@ -31,7 +29,7 @@ class SignupPage extends React.Component {
               }}/>
             </div>
           </div>
-          <button type="submit" className="btn btn-primary" onClick={(e) => {this.props.signup(email.value, password.value)}}>Signup</button>
+          <button type="submit" className="btn btn-success" onClick={(e) => {this.props.signup(email.value, password.value)}}>Signup</button>
         </div>
       </div>
     )
