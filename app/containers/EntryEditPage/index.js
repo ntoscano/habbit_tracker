@@ -128,7 +128,7 @@ class EntryEditPage extends React.Component {
               <div className="list-group list-group-flush">
                 {taskDetails}
                 <div className="text-right">
-                  <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
+                  <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();this.props.history.push('/');}}>Save</button>
                 </div>
               </div>
             </div>

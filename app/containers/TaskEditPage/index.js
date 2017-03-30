@@ -33,8 +33,8 @@ class TaskEditPage extends React.Component {
                 </div>
               </div>
               <div className="text-right">
-                <button className="btn btn-secondary" type="button" onClick={() => {browserHistory.goBack()}}>Cancel</button>
-                <button className="btn btn-success" type="button" onClick={() => {if (input.value) {this.props.onClickSaveEdit(this.props.task.id, input.value, stickyCheckbox.checked);browserHistory.goBack();}}}>Save</button>
+                <button className="btn btn-secondary" type="button" onClick={() => {this.props.history.push('/')}}>Cancel</button>
+                <button className="btn btn-success" type="button" onClick={() => {if (input.value) {this.props.onClickSaveEdit(this.props.task.id, input.value, stickyCheckbox.checked);this.props.history.push('/')}}}>Save</button>
               </div>
             </div>
           </div>
