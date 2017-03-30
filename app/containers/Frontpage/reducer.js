@@ -112,12 +112,13 @@ export default function addToDoReducer(state = initialState, action) {
       break;
 
     case constants.RECEIVE_USER:
-      return {
-        todos: state.todos,
-        loggedTodos: state.loggedTodos,
-        user: action.user ? action.user : undefined,
-        redirectUrl: state.redirectUrl,
-      }
+      return state;
+      // return {
+      //   todos: state.todos,
+      //   loggedTodos: state.loggedTodos,
+      //   user: state.user,
+      //   redirectUrl: state.redirectUrl,
+      // }
       break;
 
     case constants.POST_LOGIN:
