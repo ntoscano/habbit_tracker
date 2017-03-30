@@ -21,6 +21,7 @@ class NavBar extends React.Component {
           </div>
           <Link to="/" className="navbar-brand d-flex mx-auto">Habbit</Link>
           <Link to="/login" className="pull-xs-right">Login</Link>
+          {this.props.user ? this.props.user.email : 'Login'}
         </nav>
       </div>
     )
@@ -29,10 +30,12 @@ class NavBar extends React.Component {
 
 NavBar.propTypes = {
   backButton: React.PropTypes.bool,
+  user: React.PropTypes.object,
 };
 
 NavBar.defaultProps = {
   backButton: false,
+  user: {},
 }
 
 export default NavBar;

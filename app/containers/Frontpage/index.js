@@ -64,7 +64,7 @@ class Frontpage extends React.Component {
     });
     return (
       <div>
-        <NavBar backButton={false} />
+        <NavBar backButton={false} user={this.props.user} />
         {this.props.user.id}
         <p></p>
           <div className="container">

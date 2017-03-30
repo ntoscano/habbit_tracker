@@ -16,6 +16,8 @@ import frontpageReducer from 'Bitmatica/containers/Frontpage/reducer';
 
 import { fetchToDos, fetchEntries } from 'Bitmatica/containers/Frontpage/actions'
 
+// import App from 'Bitmatica/containers/App';
+
 const store = createStore(
   combineReducers({
     cms: frontpageReducer,
@@ -39,11 +41,9 @@ const render = (Component) => {
 };
 const App = routes;
 render(
-  <div>
     <Router>
       <App />
     </Router>
-  </div>
 );
 
 // Hot Module Replacement API

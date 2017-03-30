@@ -12,8 +12,7 @@ class SignupPage extends React.Component {
     let password;
     return (
       <div>
-        <NavBar backButton={true} />
-        {this.props.user.email} {this.props.user.id}
+        <NavBar backButton={true} user={this.props.user}/>
         <p></p>
         <div className="container">
           <div className="form-group row">

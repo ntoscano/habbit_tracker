@@ -14,7 +14,7 @@ class LoginPage extends React.Component {
     return (
       <div>
         <NavBar backButton={true} />
-        {this.props.user.email} {this.props.user.password}
+        {this.props.user ? this.props.user.email : ''}
         <p></p>
         <div className="container">
           <div className="form-group row">
@@ -34,10 +34,8 @@ class LoginPage extends React.Component {
             </div>
           </div>
           <button type="submit" className="btn btn-primary" onClick={(e) => {this.props.login(email.value, password.value)}}>Login</button>
-
-          <button className="btn btn-primary" onClick={(e) => {this.props.fetchTodos()}}>Fetch Tasks</button>
           <button className="btn btn-primary" onClick={(e) => {this.props.logout()}}>Logout</button>
-          <Link to="/signup">Signup</Link>
+          <button className="btn btn-primary" onClick={(e) => {this.props.history.push("/signup")}}>Signup</button>
         </div>
       </div>
     )
