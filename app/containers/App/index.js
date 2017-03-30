@@ -12,7 +12,6 @@ import TaskEditPage from 'Bitmatica/containers/TaskEditPage';
 import EntryEditPage from 'Bitmatica/containers/EntryEditPage';
 import SignupPage from 'Bitmatica/containers/SignupPage';
 import LoginPage from 'Bitmatica/containers/LoginPage';
-// import EnsureLoggedInContainer from 'Bitmatica/containers/EnsureLoggedInContainer';
 
 class App extends React.Component {
 
@@ -25,13 +24,11 @@ class App extends React.Component {
     const isLoggingIn = !prevProps.user && this.props.user;
 
     if (isLoggingIn) {
-      console.log('isLoggingIn');
-      this.props.history.push(this.props.redirectUrl);
       // send to redirectUrl
+      this.props.history.push(this.props.redirectUrl);
     } else if (isLoggingOut) {
-      console.log('isLoggingOut');
-      this.props.history.replace("/login");
       // send to login page
+      this.props.history.replace("/login");
     }
   }
 
@@ -44,6 +41,7 @@ class App extends React.Component {
         ) : (
           <Redirect to={{
             pathname: '/login',
+            state: { from: props.location ? props.location : '/'}
           }}/>
         )
       )}/>

@@ -3,7 +3,7 @@ import style from './index.scss';
 import {connect, dispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
 import NavBar from 'Bitmatica/components/NavBar';
-import {login, logout, fetchToDos} from 'Bitmatica/containers/Frontpage/actions';
+import {login, logout, fetchToDos, setRedirectUrl} from 'Bitmatica/containers/Frontpage/actions';
 import {SignupPage} from 'Bitmatica/containers/SignupPage';
 
 class LoginPage extends React.Component {
@@ -11,6 +11,7 @@ class LoginPage extends React.Component {
   render() {
     let email;
     let password;
+    let redirectUrl = this.props.location.state && this.props.location.state.from ? this.props.location.state.from.pathname : '/';
     return (
       <div>
         <div className="container">
@@ -31,8 +32,8 @@ class LoginPage extends React.Component {
             </div>
           </div>
           <span>
-            <Link className="text-white" to="/signup">Signup</Link>
-            <button type="submit" className="btn btn-success" onClick={(e) => {this.props.login(email.value, password.value)}}>Login</button>
+            <a className="text-white" onClick={(e)=>{this.props.setRedirectUrl(redirectUrl);this.props.history.push("/signup")}}>Signup</a>
+            <button type="submit" className="btn btn-success" onClick={(e) => {this.props.setRedirectUrl(redirectUrl);this.props.login(email.value, password.value)}}>Login</button>
           </span>
         </div>
       </div>
@@ -56,6 +57,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
+    setRedirectUrl: (url) => {
+      dispatch(setRedirectUrl(url));
+    },
     login: (email, password) => {
       dispatch(login(email, password));
     },
@@ -64,9 +68,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     },
     logout: () => {
       dispatch(logout());
-    },
-    signup: () => {
-      dispatch(signup());
     },
   }
 }
