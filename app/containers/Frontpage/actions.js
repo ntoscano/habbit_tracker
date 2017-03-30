@@ -338,3 +338,10 @@ export function receiveCurrentUser(user) {
     user,
   };
 }
+
+export function setRedirectUrl(url) {
+  return {
+    type: constants.SET_REDIRECT_URL,
+    url,
+  };
+}
