@@ -78,6 +78,36 @@ export function receiveToDo(todo) {
   };
 }
 
+export function addEntries(entries) {
+  return function (dispatch) {
+    dispatch(postEntries(entries))
+    return fetch(config.entryPath, {
+      method: 'POST',
+      credentials: 'include',
+      body: JSON.stringify(entries),
+    })
+    .then(response => response.json())
+    .then(json => {
+      dispatch(receivePostedEntries(json))
+    })
+    .catch(e => console.error('addEntries failed', e));
+  }
+}
+
+export function postEntries(entries) {
+  return {
+    type: constants.POST_ENTRIES,
+    entries,
+  };
+}
+
+export function receivePostedEntries(entry) {
+  return {
+    type: constants.RECEIVE_POSTED_ENTRIES,
+    entries,
+  };
+}
+
 export function addEntry(id, todoId, parentEntryId, content, ownerId) {
   return function (dispatch) {
     dispatch(postEntry(todoId, parentEntryId, content, ownerId))
@@ -92,7 +122,8 @@ export function addEntry(id, todoId, parentEntryId, content, ownerId) {
         check: true,
         owner_id: ownerId,
       }),
-    }).then(response => response.json())
+    })
+    .then(response => response.json())
     .then(json => {
       dispatch(receiveEntry(json))
     })
