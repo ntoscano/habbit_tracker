@@ -12,8 +12,6 @@ class TaskEditPage extends React.Component {
     let stickyCheckbox;
     return (
       <div>
-        <NavBar backButton={true} />
-        <p></p>
         <div className="container">
           <div className="card-columns">
             <div className="card">

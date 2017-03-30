@@ -17,7 +17,6 @@ let fetchTasksTimerId;
 class Frontpage extends React.Component {
 
   componentDidMount () {
-    this.props.fetchCurrentUser();
     this.props.fetchEntries();
     this.props.fetchTasks();
 
@@ -64,12 +63,9 @@ class Frontpage extends React.Component {
     });
     return (
       <div>
-        <NavBar backButton={false} user={this.props.user} />
-        {this.props.user.id}
-        <p></p>
-          <div className="container">
-            <ToDoList todos={this.props.todos} onClickAddTask={(text, userId=this.props.user.id) => {this.props.onClickAdd(text, userId)}}/>
-          </div>
+        <div className="container">
+          <ToDoList todos={this.props.todos} onClickAddTask={(text, userId=this.props.user.id) => {this.props.onClickAdd(text, userId)}}/>
+        </div>
         <p></p>
         <div className="container">
           <div className="list-group">
@@ -97,7 +93,7 @@ Frontpage.propTypes = {
 Frontpage.defaultProps = {
   todos: [],
   loggedTodos: [],
-  user: {},
+  user: undefined,
 }
 
 const mapStateToProps = (state, ownProps) => {
@@ -119,9 +115,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     fetchTasks: () => {
       dispatch(fetchToDos());
     },
-    fetchCurrentUser: () => {
-      dispatch(fetchCurrentUser());
-    }
   }
 }
 

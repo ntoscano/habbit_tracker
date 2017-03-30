@@ -115,7 +115,7 @@ export default function addToDoReducer(state = initialState, action) {
       return {
         todos: state.todos,
         loggedTodos: state.loggedTodos,
-        user: action.user,
+        user: action.user ? action.user : undefined,
         redirectUrl: state.redirectUrl,
       }
       break;
@@ -153,16 +153,14 @@ export default function addToDoReducer(state = initialState, action) {
       break;
 
     case constants.RECEIVE_CURRENT_USER:
-    console.log('received user:', action.user);
       return {
         todos: state.todos,
         loggedTodos: state.loggedTodos,
-        user: action.user,
+        user: action.user ? action.user : undefined,
         redirectUrl: state.redirectUrl,
       }
       break;
     case constants.SET_REDIRECT_URL:
-      console.log('setting redirectUrlf to', action.url);
       return {
         todos: state.todos,
         loggedTodos: state.loggedTodos,

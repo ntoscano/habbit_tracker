@@ -91,8 +91,6 @@ class TaskDetailPage extends React.Component {
     let input;
     return (
       <div>
-        <NavBar backButton={true} />
-        <p></p>
         <div className="container">
           <div className="card-columns">
             <div className="card">
