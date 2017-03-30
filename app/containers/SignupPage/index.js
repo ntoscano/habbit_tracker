@@ -29,7 +29,7 @@ class SignupPage extends React.Component {
               }}/>
             </div>
           </div>
-          <button type="submit" className="btn btn-success" onClick={(e) => {this.props.signup(email.value, password.value)}}>Signup</button>
+          <button type="submit" className="btn btn-success" onClick={(e) => {this.props.signup(email.value, password.value);this.props.history.push("/login")}}>Signup</button>
         </div>
       </div>
     )
