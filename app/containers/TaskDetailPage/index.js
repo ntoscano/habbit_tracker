@@ -6,8 +6,6 @@ import { browserHistory } from 'react-router'
 import TaskDetails from 'Bitmatica/components/TaskDetails';
 import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, logToDo, addSubTask, addEntry, addEntries} from 'Bitmatica/containers/Frontpage/actions';
-import {v4} from 'node-uuid';
-
 
 class TaskDetailPage extends React.Component {
 
@@ -47,35 +45,14 @@ class TaskDetailPage extends React.Component {
   }
 
   saveEntries () {
-    // Should prob calculate uuids in action instead of here
-    let parent_entry_id = this.state.taskIdsToLog[this.props.task.id] ? v4() : undefined;
+    let parent_task_id = this.props.task.id
+    let parent = this.state.taskIdsToLog[this.props.task.id];
     let entries = Object.keys(this.state.taskIdsToLog).filter((key, index) => {
       return this.state.taskIdsToLog[key];
     }).map((taskId, index) => {
-
-      let task = this.props.task.id === taskId ? this.props.task : this.props.subTasks.filter((task) => {
-        return task.id === taskId
-      })[0];
-
       return {
-        id: task.id === this.props.task.id ? parent_entry_id : v4(),
-        taskId,
-        parent_entry_id: task.id === this.props.task.id ? undefined : parent_entry_id,
-        content: this.state.notesForTaskId[taskId],
-        owner_id: this.props.user.id,
-      }
-    });
-    this.props.onCLickLogAll(entries);
-  }
-
-  saveEntriesNew () {
-    let entries = Object.keys(this.state.taskIdsToLog).filter((key, index) => {
-      return this.state.taskIdsToLog[key];
-    }).map((taskId, index) => {
-
-      return {
-        taskId,
-        isParent: this.props.taskId === taskId,
+        task_id: taskId,
+        is_parent: parent ? parent_task_id === taskId : false,
         content: this.state.notesForTaskId[taskId],
         owner_id: this.props.user.id,
       }
@@ -122,7 +99,7 @@ class TaskDetailPage extends React.Component {
                   </div>
                 </div>
                 <div className="text-right">
-                  <button className="btn btn-success" type="button" onClick={() => {this.saveEntriesNew();browserHistory.goBack();}}>Save</button>
+                  <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
                 </div>
               </div>
             </div>
@@ -166,11 +143,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   return {
     onClickAddTask: (parentTaskId, name, userId) => {
       dispatch(addToDo(parentTaskId, name, userId));
-    },
-    onCLickLogAll: (entries) => {
-      entries.map((entry, index) => {
-        dispatch(addEntry(entry.id, entry.taskId, entry.parent_entry_id, entry.content, entry.owner_id))
-      });
     },
     onCLickLogAll: (entries) => {
       dispatch(addEntries(entries));
