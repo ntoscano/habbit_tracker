@@ -1,11 +1,11 @@
 import constants from "./constants";
-import {v4} from 'node-uuid';
 
 const config = {
   basePath: 'http://localhost:1337',
 }
 config.taskPath = config.basePath + '/task';
 config.entryPath = config.basePath + '/entry';
+config.entriesPath = config.basePath + '/entries';
 config.userPath = config.basePath + '/user';
 config.loginPath = config.basePath + '/login';
 config.logoutPath = config.basePath + '/logout';
@@ -48,7 +48,6 @@ export function addToDo(parentTaskId, name, ownerId) {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify({
-        id: v4(),
         name: name,
         sticky: parentTaskId ? false: true,
         parent_task_id: parentTaskId ? parentTaskId : undefined,
@@ -81,7 +80,7 @@ export function receiveToDo(todo) {
 export function addEntries(entries) {
   return function (dispatch) {
     dispatch(postEntries(entries))
-    return fetch(config.entryPath, {
+    return fetch(config.entriesPath, {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify(entries),
@@ -101,21 +100,20 @@ export function postEntries(entries) {
   };
 }
 
-export function receivePostedEntries(entry) {
+export function receivePostedEntries(entries) {
   return {
     type: constants.RECEIVE_POSTED_ENTRIES,
     entries,
   };
 }
 
-export function addEntry(id, todoId, parentEntryId, content, ownerId) {
+export function addEntry(todoId, parentEntryId, content, ownerId) {
   return function (dispatch) {
     dispatch(postEntry(todoId, parentEntryId, content, ownerId))
     return fetch(config.entryPath, {
       method: 'POST',
       credentials: 'include',
       body: JSON.stringify({
-        id: id,
         content: content,
         task_id: todoId,
         parent_entry_id: parentEntryId,

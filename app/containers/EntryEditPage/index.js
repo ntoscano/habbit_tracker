@@ -6,8 +6,6 @@ import { browserHistory } from 'react-router'
 import TaskDetails from 'Bitmatica/components/TaskDetails';
 import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, logToDo, addSubTask, addEntry, editEntry} from 'Bitmatica/containers/Frontpage/actions';
-import {v4} from 'node-uuid';
-
 
 class EntryEditPage extends React.Component {
 
@@ -76,11 +74,11 @@ class EntryEditPage extends React.Component {
     })
     .map((taskId, index) => {
       this.props.onClickAddEntry({
-        id: v4(),
         task_id: taskId,
         parent_entry_id: parentEntry && taskId !== parentEntry.task_id ? parentEntry.id : '',
         content: this.state.notesForTaskId[taskId],
-      })
+      },
+      this.props.user.id);
     });
   }
 
@@ -176,6 +174,7 @@ const mapStateToProps = (state, ownProps) => {
     subEntries,
     task,
     subTasks,
+    user: state.cms.user,
   }
 }
 
@@ -187,8 +186,8 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     onClickEditEntry: (entry) => {
       dispatch(editEntry(entry.id, entry.content, entry.check, entry.parent_entry_id));
     },
-    onClickAddEntry: (entry) => {
-      dispatch(addEntry(entry.id, entry.task_id, entry.parent_entry_id, entry.content));
+    onClickAddEntry: (entry, userId) => {
+      dispatch(addEntry(entry.task_id, entry.parent_entry_id, entry.content, userId));
     },
   }
 }
