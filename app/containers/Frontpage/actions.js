@@ -1,7 +1,7 @@
 import constants from "./constants";
 
 const config = {
-  basePath: 'http://localhost:1337',
+  basePath: 'http://task-logger-api.herokuapp.com',
 }
 config.taskPath = config.basePath + '/task';
 config.entryPath = config.basePath + '/entry';
