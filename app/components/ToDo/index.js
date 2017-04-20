@@ -7,10 +7,15 @@ class ToDo extends React.Component {
 
   render() {
     return (
-      <div className="btn-group mr-2" role="group" aria-label="First group">
-        <Link to={"/tasks/" + this.props.todo.id} className="btn btn-secondary">
-          <h4 className="text-muted">{this.props.todo.name}</h4>
+      <div className="center mw5 mw6-ns br3 hidden ba b--black-10 mv4" role="group" aria-label="First group">
+        <Link to={"/tasks/" + this.props.todo.id} className="">
+          <h1 className="f4 bg-near-white br3 br--top black-60 mv0 pv2 ph3">{this.props.todo.name}</h1>
         </Link>
+          <div className="pa3 bt b--black-10">
+            <p className="f6 f5-ns lh-copy measure">
+              Card Details can go here
+            </p>
+        </div>
       </div>
     )
   }

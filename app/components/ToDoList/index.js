@@ -16,9 +16,12 @@ class ToDoList extends React.Component {
     });
     return (
         <div>
-          {todos}
-          <p></p>
-          <AddToDo className={style.page} onClick={this.props.onClickAddTask} />
+          <div className="fl w-50">
+            {todos}
+          </div>
+          <div className="fl w-50">
+            <AddToDo onClick={this.props.onClickAddTask} />
+          </div>
         </div>
     )
   }

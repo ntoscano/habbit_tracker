@@ -6,33 +6,45 @@ class AddToDo extends React.Component {
 
   addTask(input) {
     if (input.value) {
-      this.props.onClick(input.value); input.value='';
+      this
+        .props
+        .onClick(input.value);
+      input.value = '';
     }
   }
   render() {
     let input;
     return (
-      <div className="card">
-        <div className="input-group">
-          <input className="form-control" placeholder="New Task Name..." ref={node => {
+      <form className="pa4 black-80">
+        <div className="measure">
+          <label className="f6 b db mb2">New Task Name...</label>
+          <input
+            className="input-reset ba b--black-20 pa2 mb2 db w-100"
+            type="text"
+            ref={node => {
             input = node;
-          }} onKeyPress={(e) => {if (e.key === 'Enter') this.addTask(input)}}/>
-          <span className="input-group-btn">
-            <button className="btn btn-secondary" type="button" onClick={() => {this.addTask(input)}}>Add</button>
-          </span>
+          }}
+            onKeyPress={(e) => {
+            if (e.key === 'Enter') 
+              this.addTask(input)
+          }}/>
         </div>
-      </div>
+          <div className="mt3">
+            <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="button" onClick={() => {
+              this.addTask(input)
+            }} value="Add" />
+          </div>
+      </form>
     )
   }
 }
 
 AddToDo.propTypes = {
-  onClick: React.PropTypes.func,
-
+  onClick: React.PropTypes.func
 };
 
 AddToDo.defaultProps = {
-  onClick: undefined,
+  onClick: undefined
 }
 
 export default AddToDo;
