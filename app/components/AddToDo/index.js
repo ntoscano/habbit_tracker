@@ -16,11 +16,10 @@ class AddToDo extends React.Component {
     let input;
     return (
       <form className="pa4 black-80">
-        <div className="measure">
+        <div className="">
           <label className="f6 b db mb2">New Task Name...</label>
           <input
-            className="input-reset ba b--black-20 pa2 mb2 db w-100"
-            type="text"
+            className="input-reset f6 ba b--black-20 pa2 mb2 db w-100"
             ref={node => {
             input = node;
           }}
