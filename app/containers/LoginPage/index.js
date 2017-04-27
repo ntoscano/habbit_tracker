@@ -65,6 +65,8 @@ class LoginPage extends React.Component {
               href="#0"
               className="f6 link dim black db"
               onClick={(e) => {
+              e.stopPropagation();
+              e.preventDefault();
               this
                 .props
                 .setRedirectUrl(redirectUrl);
