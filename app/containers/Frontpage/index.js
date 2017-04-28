@@ -42,22 +42,14 @@ class Frontpage extends React.Component {
     });
     return (
       <div>
-        <div className="f1 w-100">
-          <HabbitList todos={this.props.todos} onClickAddTask={(text, userId=this.props.user.id) => {this.props.onClickAdd(text, userId)}}/>
-        </div>
-        <p></p>
+        <HabbitList todos={this.props.todos} onClickAddTask={(text, userId=this.props.user.id) => {this.props.onClickAdd(text, userId)}}/>
         <div className="container f1 w-50">
-          <div className="list-group">
-            <div className="list-group-item">
-              <table className="table table-hover">
-                <tbody>
-                  {entries}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <table className="table table-hover">
+            <tbody>
+              {entries}
+            </tbody>
+          </table>
         </div>
-        <p></p>
       </div>
     )
   }

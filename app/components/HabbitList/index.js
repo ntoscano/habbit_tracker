@@ -15,12 +15,12 @@ class HabbitList extends React.Component {
       );
     });
     return (
-        <div>
-          <div className="fl w-50">
-            {todos}
-          </div>
-          <div className="fl w-50">
+        <div className="fl w-100 center">
+          <div>
             <AddHabbit onClick={this.props.onClickAddTask} />
+          </div>
+          <div>
+            {todos}
           </div>
         </div>
     )

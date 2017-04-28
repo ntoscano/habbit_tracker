@@ -35,15 +35,8 @@ class App extends React.Component {
   render() {
     // From https://reacttraining.com/react-router/web/example/auth-workflow
     const PrivateRoute = ({ component, ...rest }) => (
-      <Route {...rest} render={props => (
-        this.props.user ? (
-          React.createElement(component, props)
-        ) : (
-          <Redirect to={{
-            pathname: '/login',
-            state: { from: props.location ? props.location : '/'}
-          }}/>
-        )
+      <Route {...rest} render={props => ( this.props.user ? ( React.createElement(component, props)) :
+        (<Redirect to={{pathname: '/login', state: { from: props.location ? props.location : '/'}}}/>)
       )}/>
     )
 

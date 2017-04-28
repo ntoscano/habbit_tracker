@@ -16,9 +16,9 @@ class NavBar extends React.Component {
                 </li>
             </ul>}
           </div>
-          <Link to="/" className="link dim black b f1 tc db mb4-ns">Habbit</Link>
+          <Link to="/" className="link dim black b f2 tc db mb4-ns fl di">Habbit</Link>
           {this.props.user &&
-            <span>
+            <span className="di fr">
               <p className="link dim gray f6 f5-ns dib mr3">{this.props.user.email}</p>
               <a className="link dim gray f6 f5-ns dib mr3" onClick={(e)=>{console.log('click');;this.props.onClickLogout()}}>Logout</a>
             </span>

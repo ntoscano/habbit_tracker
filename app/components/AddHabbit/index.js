@@ -15,11 +15,11 @@ class AddHabbit extends React.Component {
   render() {
     let input;
     return (
-      <form className="pa4 black-80">
-        <div className="">
+      <form className="pa4 black-80 w-100">
+        <div className="di">
           <label className="f6 b db mb2">New Task Name...</label>
           <input
-            className="input-reset f6 ba b--black-20 pa2 mb2 db w-100"
+            className="input-reset f6 ba b--black-20 pa2 mb2 di w-80"
             ref={node => {
             input = node;
           }}
@@ -28,8 +28,8 @@ class AddHabbit extends React.Component {
               this.addTask(input)
           }}/>
         </div>
-          <div className="mt3">
-            <input className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6" type="button" onClick={() => {
+          <div className="mt3 di">
+            <input className="b ml3 ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 w-10" type="button" onClick={() => {
               this.addTask(input)
             }} value="Add" />
           </div>
