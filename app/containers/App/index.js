@@ -7,8 +7,8 @@ import NavBar from 'Bitmatica/components/NavBar';
 
 import Frontpage from 'Bitmatica/containers/Frontpage';
 import ErrorPage from 'Bitmatica/containers/ErrorPage';
-import TaskDetailPage from 'Bitmatica/containers/TaskDetailPage';
-import TaskEditPage from 'Bitmatica/containers/TaskEditPage';
+import HabbitDetailPage from 'Bitmatica/containers/HabbitDetailPage';
+import HabbitEditPage from 'Bitmatica/containers/HabbitEditPage';
 import EntryEditPage from 'Bitmatica/containers/EntryEditPage';
 import SignupPage from 'Bitmatica/containers/SignupPage';
 import LoginPage from 'Bitmatica/containers/LoginPage';
@@ -56,8 +56,8 @@ class App extends React.Component {
         <Route path="/404" component={ErrorPage} />
 
         <PrivateRoute exact path="/" component={Frontpage} />
-        <PrivateRoute exact path="/tasks/:id" component={TaskDetailPage} />
-        <PrivateRoute exact path="/tasks/:id/edit" component={TaskEditPage} />
+        <PrivateRoute exact path="/tasks/:id" component={HabbitDetailPage} />
+        <PrivateRoute exact path="/tasks/:id/edit" component={HabbitEditPage} />
         <PrivateRoute exact path="/entries/:id" component={EntryEditPage} />
         <PrivateRoute path="/404" component={ErrorPage} />
 

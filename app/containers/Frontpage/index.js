@@ -1,9 +1,9 @@
 import React from 'react';
 import {connect, dispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
-import ToDoList from 'Bitmatica/components/ToDoList';
-import AddToDo from 'Bitmatica/components/AddToDo';
-import LoggedToDoList from 'Bitmatica/components/LoggedToDoList';
+import HabbitList from 'Bitmatica/components/HabbitList';
+import AddHabbit from 'Bitmatica/components/AddHabbit';
+import LoggedEntries from 'Bitmatica/components/LoggedEntries';
 import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, fetchEntries, fetchToDos, fetchCurrentUser} from './actions';
 import style from './index.scss';
@@ -19,12 +19,6 @@ class Frontpage extends React.Component {
     this.props.fetchEntries();
     this.props.fetchTasks();
 
-    // fetchEntriesTimerId = setInterval(this.props.fetchEntries, 1000);
-    // fetchTasksTimerId = setInterval(this.props.fetchTasks, 1000);
-  }
-  componentWillUnmount () {
-    // clearInterval(fetchEntriesTimerId);
-    // clearInterval(fetchTasksTimerId);
   }
 
   parentTaskIdForEntryGroup(entryGroup) {
@@ -49,7 +43,7 @@ class Frontpage extends React.Component {
     return (
       <div>
         <div className="f1 w-100">
-          <ToDoList todos={this.props.todos} onClickAddTask={(text, userId=this.props.user.id) => {this.props.onClickAdd(text, userId)}}/>
+          <HabbitList todos={this.props.todos} onClickAddTask={(text, userId=this.props.user.id) => {this.props.onClickAdd(text, userId)}}/>
         </div>
         <p></p>
         <div className="container f1 w-50">

@@ -5,7 +5,7 @@ import style from './index.scss';
 
 import moment from 'moment';
 
-class LoggedToDoList extends React.Component {
+class LoggedEntries extends React.Component {
 
   render() {
     const entries = this.props.loggedTodos.map((entry, index) => {
@@ -27,12 +27,12 @@ class LoggedToDoList extends React.Component {
   }
 }
 
-LoggedToDoList.propTypes = {
+LoggedEntries.propTypes = {
   loggedTodos: React.PropTypes.array,
 };
 
-LoggedToDoList.defaultProps = {
+LoggedEntries.defaultProps = {
   loggedTodos: [],
 }
 
-export default LoggedToDoList;
+export default LoggedEntries;

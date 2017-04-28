@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import style from './index.scss';
 
-class AddToDo extends React.Component {
+class AddHabbit extends React.Component {
 
   addTask(input) {
     if (input.value) {
@@ -38,12 +38,12 @@ class AddToDo extends React.Component {
   }
 }
 
-AddToDo.propTypes = {
+AddHabbit.propTypes = {
   onClick: React.PropTypes.func
 };
 
-AddToDo.defaultProps = {
+AddHabbit.defaultProps = {
   onClick: undefined
 }
 
-export default AddToDo;
+export default AddHabbit;

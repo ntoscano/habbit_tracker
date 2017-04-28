@@ -16,7 +16,7 @@ class NavBar extends React.Component {
                 </li>
             </ul>}
           </div>
-          <Link to="/" className="link dim black b f2 f-headline-ns tc db mb3 mb4-ns">Habbit</Link>
+          <Link to="/" className="link dim black b f1 tc db mb4-ns">Habbit</Link>
           {this.props.user &&
             <span>
               <p className="link dim gray f6 f5-ns dib mr3">{this.props.user.email}</p>

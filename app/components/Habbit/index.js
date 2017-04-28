@@ -3,7 +3,7 @@ import cx from 'classnames';
 import style from './index.scss';
 import { Link } from 'react-router-dom';
 
-class ToDo extends React.Component {
+class Habbit extends React.Component {
 
   render() {
     return (
@@ -13,7 +13,7 @@ class ToDo extends React.Component {
         </Link>
           <div className="pa3 bt b--black-10">
             <p className="f6 f5-ns lh-copy measure">
-              Card Details can go here
+              {this.props.todo.notes}
             </p>
         </div>
       </div>
@@ -21,12 +21,12 @@ class ToDo extends React.Component {
   }
 }
 
-ToDo.propTypes = {
+Habbit.propTypes = {
   todo: React.PropTypes.object,
 };
 
-ToDo.defaultProps = {
+Habbit.defaultProps = {
   todo: {},
 }
 
-export default ToDo;
+export default Habbit;

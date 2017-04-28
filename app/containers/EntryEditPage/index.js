@@ -3,7 +3,7 @@ import style from './index.scss';
 import {connect, dispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
 import { browserHistory } from 'react-router'
-import TaskDetails from 'Bitmatica/components/TaskDetails';
+import HabbitDetails from 'Bitmatica/components/HabbitDetails';
 import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, logToDo, addSubTask, addEntry, editEntry} from 'Bitmatica/containers/Frontpage/actions';
 
@@ -41,6 +41,7 @@ class EntryEditPage extends React.Component {
   }
 
   onChangeNotes (id, notes) {
+    console.log(notes);
     this.setState({
       taskIdsToLog: this.state.taskIdsToLog,
       notesForTaskId: Object.assign({}, this.state.notesForTaskId, {
@@ -105,9 +106,9 @@ class EntryEditPage extends React.Component {
   }
 
   render() {
-    const taskDetails = [this.props.task].concat(this.props.subTasks).map((task, index) => {
+    const habbitDetails = [this.props.task].concat(this.props.subTasks).map((task, index) => {
       return (
-        <TaskDetails
+        <HabbitDetails
           task={task}
           notes={this.state.notesForTaskId[task.id]}
           checked={this.state.taskIdsToLog[task.id]}
@@ -124,7 +125,7 @@ class EntryEditPage extends React.Component {
           <div className="card-columns">
             <div className="card">
               <div className="list-group list-group-flush">
-                {taskDetails}
+                {habbitDetails}
                 <div className="text-right">
                   <button className="btn btn-success" type="button" onClick={() => {this.saveEntries();this.props.history.push('/');}}>Save</button>
                 </div>

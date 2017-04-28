@@ -1,17 +1,17 @@
 import React from 'react';
 import cx from 'classnames';
 import style from './index.scss';
-import ToDo from 'Bitmatica/components/ToDo';
-import AddToDo from 'Bitmatica/components/AddToDo';
+import Habbit from 'Bitmatica/components/Habbit';
+import AddHabbit from 'Bitmatica/components/AddHabbit';
 
-class ToDoList extends React.Component {
+class HabbitList extends React.Component {
 
   render() {
     const todos = this.props.todos.filter((todo) => {
       return todo.sticky;
     }).map((todo, index) => {
       return (
-        <ToDo todo={todo} key={todo.id}/>
+        <Habbit todo={todo} key={todo.id}/>
       );
     });
     return (
@@ -20,21 +20,21 @@ class ToDoList extends React.Component {
             {todos}
           </div>
           <div className="fl w-50">
-            <AddToDo onClick={this.props.onClickAddTask} />
+            <AddHabbit onClick={this.props.onClickAddTask} />
           </div>
         </div>
     )
   }
 }
 
-ToDoList.propTypes = {
+HabbitList.propTypes = {
   todos: React.PropTypes.array,
   onClickAddTask: React.PropTypes.func,
 };
 
-ToDoList.defaultProps = {
+HabbitList.defaultProps = {
   todos: [],
   onClickAddTask: undefined,
 }
 
-export default ToDoList;
+export default HabbitList;
