@@ -26,6 +26,7 @@ const store = createStore(
 );
 
 const render = (Component) => {
+  console.log('test')
   ReactDOM.render(
     <AppContainer>
       <Provider store={store}>
