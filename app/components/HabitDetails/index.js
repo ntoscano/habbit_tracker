@@ -3,7 +3,7 @@ import cx from 'classnames';
 import style from './index.scss';
 import {Link} from 'react-router-dom';
 
-class HabbitDetails extends React.Component {
+class HabitDetails extends React.Component {
 
   onClickCheckbox(newValue) {
     this
@@ -60,7 +60,7 @@ class HabbitDetails extends React.Component {
   };
 }
 
-HabbitDetails.propTypes = {
+HabitDetails.propTypes = {
   task: React.PropTypes.object,
 
   onClickCheckbox: React.PropTypes.func,
@@ -70,7 +70,7 @@ HabbitDetails.propTypes = {
   notes: React.PropTypes.string
 };
 
-HabbitDetails.defaultProps = {
+HabitDetails.defaultProps = {
   task: {},
 
   onClickCheckbox: undefined,
@@ -80,4 +80,4 @@ HabbitDetails.defaultProps = {
   notes: ''
 }
 
-export default HabbitDetails;
+export default HabitDetails;

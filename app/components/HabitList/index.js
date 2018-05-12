@@ -1,23 +1,23 @@
 import React from 'react';
 import cx from 'classnames';
 import style from './index.scss';
-import Habbit from 'Bitmatica/components/Habbit';
-import AddHabbit from 'Bitmatica/components/AddHabbit';
+import Habit from 'Bitmatica/components/Habit';
+import AddHabit from 'Bitmatica/components/AddHabit';
 
-class HabbitList extends React.Component {
+class HabitList extends React.Component {
 
   render() {
     const todos = this.props.todos.filter((todo) => {
       return todo.sticky;
     }).map((todo, index) => {
       return (
-        <Habbit todo={todo} key={todo.id}/>
+        <Habit todo={todo} key={todo.id}/>
       );
     });
     return (
         <div className="fl w-100 center">
           <div>
-            <AddHabbit onClick={this.props.onClickAddTask} />
+            <AddHabit onClick={this.props.onClickAddTask} />
           </div>
           <div>
             {todos}
@@ -27,14 +27,14 @@ class HabbitList extends React.Component {
   }
 }
 
-HabbitList.propTypes = {
+HabitList.propTypes = {
   todos: React.PropTypes.array,
   onClickAddTask: React.PropTypes.func,
 };
 
-HabbitList.defaultProps = {
+HabitList.defaultProps = {
   todos: [],
   onClickAddTask: undefined,
 }
 
-export default HabbitList;
+export default HabitList;

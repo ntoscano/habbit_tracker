@@ -1,8 +1,8 @@
 import React from 'react';
 import {connect, dispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
-import HabbitList from 'Bitmatica/components/HabbitList';
-import AddHabbit from 'Bitmatica/components/AddHabbit';
+import HabitList from 'Bitmatica/components/HabitList';
+import AddHabit from 'Bitmatica/components/AddHabit';
 import LoggedEntries from 'Bitmatica/components/LoggedEntries';
 import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, fetchEntries, fetchToDos, fetchCurrentUser} from './actions';
@@ -42,7 +42,7 @@ class Frontpage extends React.Component {
     });
     return (
       <div>
-        <HabbitList todos={this.props.todos} onClickAddTask={(text, userId=this.props.user.id) => {this.props.onClickAdd(text, userId)}}/>
+        <HabitList todos={this.props.todos} onClickAddTask={(text, userId=this.props.user.id) => {this.props.onClickAdd(text, userId)}}/>
         <div className="container f1 w-50">
           <table className="table table-hover">
             <tbody>

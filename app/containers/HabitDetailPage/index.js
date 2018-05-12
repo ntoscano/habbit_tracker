@@ -3,7 +3,7 @@ import style from './index.scss';
 import {connect, dispatch} from 'react-redux';
 import { Link } from 'react-router-dom';
 import { browserHistory } from 'react-router'
-import HabbitDetails from 'Bitmatica/components/HabbitDetails';
+import HabitDetails from 'Bitmatica/components/HabitDetails';
 import NavBar from 'Bitmatica/components/NavBar';
 import {addToDo, logToDo, addSubTask, addEntry, addEntries} from 'Bitmatica/containers/Frontpage/actions';
 
@@ -68,9 +68,9 @@ class TaskDetailPage extends React.Component {
   }
 
   render() {
-    const habbitDetails = [this.props.task].concat(this.props.subTasks).map((task, index) => {
+    const habitDetails = [this.props.task].concat(this.props.subTasks).map((task, index) => {
       return (
-        <HabbitDetails
+        <HabitDetails
           task={task}
           notes={this.state.notesForTaskId[task.id]}
           checked={this.state.taskIdsToLog[task.id]}
@@ -96,7 +96,7 @@ class TaskDetailPage extends React.Component {
             </div>
           </div>
         </form>
-        {habbitDetails}
+        {habitDetails}
         <div className="center w-100">
           <button className="fr b ma2 ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 w-10" type="button" onClick={() => {this.saveEntries();browserHistory.goBack();}}>Save</button>
         </div>

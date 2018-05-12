@@ -3,7 +3,7 @@ import cx from 'classnames';
 import style from './index.scss';
 import { Link } from 'react-router-dom';
 
-class Habbit extends React.Component {
+class Habit extends React.Component {
 
   render() {
     return (
@@ -16,12 +16,12 @@ class Habbit extends React.Component {
   }
 }
 
-Habbit.propTypes = {
+Habit.propTypes = {
   todo: React.PropTypes.object,
 };
 
-Habbit.defaultProps = {
+Habit.defaultProps = {
   todo: {},
 }
 
-export default Habbit;
+export default Habit;
